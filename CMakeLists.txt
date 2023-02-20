@@ -91,12 +91,12 @@ project (
         C CXX
 )
 
-enable_testing ()
-add_subdirectory ( exclude/googletest )
-include_directories (
-    ${gtest_SOURCE_DIR}/include
-    ${gtest_SOURCE_DIR}
-)
+# enable_testing ()
+# add_subdirectory ( exclude/googletest )
+# include_directories (
+#    ${gtest_SOURCE_DIR}/include
+#    ${gtest_SOURCE_DIR}
+# )
 
 
 add_executable (
