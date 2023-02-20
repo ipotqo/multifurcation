@@ -33,4 +33,7 @@
 
 # Directories
 build/
+exclude/
+
+# Mac
 .DS_Store
