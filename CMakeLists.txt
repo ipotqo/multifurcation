@@ -15,6 +15,8 @@ set (
     multifurcation
 )
 
+# HEADERS
+
 set (
     MULTIFURCATION_HEADERS_DIR
     include/${MULTIFURCATION_LIBRARY_NAME}
@@ -25,6 +27,8 @@ set (
     ${MULTIFURCATION_HEADERS_DIR}/multifurcation.hpp
 )
 
+# SOURCE
+
 set (
     MULTIFURCATION_SOURCE_DIR
     src
@@ -34,6 +38,48 @@ set (
     MULTIFURCATION_SOURCE
     ${MULTIFURCATION_SOURCE_DIR}/multifurcation.cpp
 )
+
+# LIBRARIES
+set (
+    MULTIFURCATION_LIBRARIES_DIR
+    lib
+)
+
+set (
+    MULTIFURCATION_LIBRARIES
+    innovation
+    invention
+    creation
+    construction
+)
+
+# TOOLS
+
+set (
+    MULTIFURCATION_TOOLS_DIR
+    tools
+)
+
+set (
+    MULTIFURCATION_TOOLS
+    academic
+    artisan
+)
+
+# UTILITIES
+
+set (
+    MULTIFURCATION_UTILITIES_DIR
+    utilities
+)
+
+set (
+    MULTIFURCATION_UTILITIES
+    artist
+    author
+)
+
+# PROJECT
 
 project (
     multifurcation
