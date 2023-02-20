@@ -5,12 +5,11 @@
 
 namespace multifurcation {
 
-int EntrancePoint ( int argc, char* argv[] ) {
-    std::cout << "multifurcation\n";
-    return EXIT_SUCCESS;
+int EntrancePoint(int argc, char *argv[]) {
+  std::cout << "multifurcation\n";
+  return EXIT_SUCCESS;
 }
 
 } // namespace multifurcation
-
 
 #endif // __MULTIFURCATION_HPP__
