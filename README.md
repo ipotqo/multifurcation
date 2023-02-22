@@ -3,7 +3,7 @@
 
 ![multifurcation_banner](assets/multifurcation_banner.jpg)
 
-The `multifurcation` skeleton is a convention for a `cmake` structure with branched divisions.
+The `multifurcation` skeleton is a convention for a `cmake` structure with branched subdivisions.
 
 ---
 
