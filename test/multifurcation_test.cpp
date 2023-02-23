@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-//#include <multifurcation/multifurcation.hpp>
+// #include <multifurcation/multifurcation.hpp>
 
 TEST ( multifurcation_test, test_name ) {
     EXPECT_EQ ( 0,0 );

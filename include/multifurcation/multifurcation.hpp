@@ -6,9 +6,19 @@
 #ifndef __MULTIFURCATION_HPP__
 #define __MULTIFURCATION_HPP__
 
+// C Headers
+#include <cassert>
+
+// C++ Headers
 #include <iostream>
 
+// Utilities
 #include <author/author.hpp>
+
+// Tools (incl. Utilities)
+
+// Libraries (incl. Tools and Utilties)
+
 
 namespace multifurcation {
 
