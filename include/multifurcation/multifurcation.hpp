@@ -19,6 +19,7 @@
 #include <academic/academic.hpp>
 
 // Libraries (incl. Tools and Utilties)
+#include <innovation/innovation.hpp>
 
 // Local Headers
 #include "version.hpp"
@@ -37,6 +38,8 @@ int EntrancePoint(int argc, char *argv[]) {
     author::terminal ( "<utilities:author>" );
 
     academic::terminal ( "<tools:academic>" );
+
+    innovation::terminal ( "<libraries:innovation>" );
     
     return EXIT_SUCCESS;
 }

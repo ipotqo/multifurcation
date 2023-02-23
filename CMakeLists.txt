@@ -48,9 +48,9 @@ set (
 set (
     MULTIFURCATION_LIBRARIES
     innovation
-    invention
-    creation
-    construction
+    # invention
+    # creation
+    # construction
 )
 
 # TOOLS
@@ -120,9 +120,13 @@ foreach ( UTILITY ${MULTIFURCATION_UTILITIES} )
     add_subdirectory ( ${MULTIFURCATION_UTILITIES_DIR}/${UTILITY} )
 endforeach ( UTILITY ${MULTIFURCATION_UTILITIES} )
 
-foreach ( TOOLS ${MULTIFURCATION_TOOLS} )
-    add_subdirectory ( ${MULTIFURCATION_TOOLS_DIR}/${TOOLS} )
-endforeach ( TOOLS ${MULTIFURCATION_TOOLS} )
+foreach ( TOOL ${MULTIFURCATION_TOOLS} )
+    add_subdirectory ( ${MULTIFURCATION_TOOLS_DIR}/${TOOL} )
+endforeach ( TOOL ${MULTIFURCATION_TOOLS} )
+
+foreach ( LIBRARY ${MULTIFURCATION_LIBRARIES} )
+    add_subdirectory ( ${MULTIFURCATION_LIBRARIES_DIR}/${LIBRARY} )
+endforeach ( LIBRARY ${MULTIFURCATION_LIBRARIES} )
 
 add_subdirectory ( test )
 
@@ -130,4 +134,5 @@ target_link_libraries (
     ${MULTIFURCATION_PROJECT_NAME}
     ${MULTIFURCATION_UTILITIES}
     ${MULTIFURCATION_TOOLS}
+    ${MULTIFURCATION_LIBRARIES}
 )
