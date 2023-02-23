@@ -91,12 +91,12 @@ project (
         C CXX
 )
 
-# enable_testing ()
-# add_subdirectory ( exclude/googletest )
-# include_directories (
-#    ${gtest_SOURCE_DIR}/include
-#    ${gtest_SOURCE_DIR}
-# )
+enable_testing ()
+add_subdirectory ( external/googletest )
+include_directories (
+    ${gtest_SOURCE_DIR}/include
+    ${gtest_SOURCE_DIR}
+)
 
 
 add_executable (
@@ -119,6 +119,8 @@ target_include_directories (
 foreach ( UTILITY ${MULTIFURCATION_UTILITIES} )
     add_subdirectory ( ${MULTIFURCATION_UTILITIES_DIR}/${UTILITY} )
 endforeach ( UTILITY ${MULTIFURCATION_UTILITIES} )
+
+add_subdirectory ( test )
 
 target_link_libraries (
     ${MULTIFURCATION_PROJECT_NAME}

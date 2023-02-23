@@ -63,4 +63,4 @@ target_include_directories (
     $<INSTALL_INTERFACE:include>
 )
 
-# add_subdirectory ( test )
+add_subdirectory ( test )

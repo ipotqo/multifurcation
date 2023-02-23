@@ -1,3 +1,3 @@
 # External
 
-Third-Party Dependencies
+Third-Party Dependencies as GitHub Submodules
