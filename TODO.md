@@ -8,7 +8,7 @@
 - [ ] Add scripts to rename files
 - [ ] Add Python API
 - [ ] Add basic Logger and Timer utilities
-- [ ] Add Script Builder tools (`MATLAB`/`OCTAVE` and `GNUPLOT`)
+- [ ] Add Script Builder tools (`MATLAB`/`OCTAVE`, `GNUPLOT`, `TEX`/`TIKZ`)
 - [ ] Add conventions subdirectories
 - [ ] Clean `CMakeLists.txt` files
 - [ ] Fix tabs in the nested `printf()` statements
@@ -24,6 +24,7 @@
 - [ ] Add a `clang-format.sh` to format all `*.cpp` and `*.hpp` files in relevant directories (i.e. not external subdirectories/submodules)
 - [ ] Modify `Doxyfile` format and add `doxygen` comments to code
 - [ ] Add a plugin
-- [ ] Add some `.res` files
+- [ ] Add some `.res` and `.dat` files
 - [ ] Add scripts to migrate binaries from `build/` to `bin/` directories
 - [ ] Create some examples of the program input/output
+- [ ] Upgrade to `c++23` if possible
