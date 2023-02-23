@@ -3,11 +3,17 @@
 
 #include <iostream>
 
+#include <author/author.hpp>
+
 namespace multifurcation {
 
 int EntrancePoint(int argc, char *argv[]) {
-  std::cout << "multifurcation\n";
-  return EXIT_SUCCESS;
+    
+    std::cout << "multifurcation\n";
+    
+    author::terminal ( "<utilities:author>" );
+    
+    return EXIT_SUCCESS;
 }
 
 } // namespace multifurcation

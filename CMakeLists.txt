@@ -75,7 +75,7 @@ set (
 
 set (
     MULTIFURCATION_UTILITIES
-    artist
+    # artist
     author
 )
 
@@ -114,4 +114,13 @@ target_include_directories (
     ${MULTIFURCATION_LIBRARY_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
     $<INSTALL_INTERFACE:include>
+)
+
+foreach ( UTILITY ${MULTIFURCATION_UTILITIES} )
+    add_subdirectory ( ${MULTIFURCATION_UTILITIES_DIR}/${UTILITY} )
+endforeach ( UTILITY ${MULTIFURCATION_UTILITIES} )
+
+target_link_libraries (
+    ${MULTIFURCATION_PROJECT_NAME}
+    ${MULTIFURCATION_UTILITIES}
 )
