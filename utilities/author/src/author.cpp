@@ -1,5 +1,5 @@
 #include "author.hpp"
 
-void author::terminal ( std::string_view const& record ) {
-    std::cout << "author:\t" << record << '\n';
+void author::terminal ( std::string_view const& statement ) {
+    printf( "author:\t%s\n", statement.data() );
 }

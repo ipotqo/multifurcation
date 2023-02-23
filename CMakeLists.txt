@@ -63,7 +63,7 @@ set (
 set (
     MULTIFURCATION_TOOLS
     academic
-    artisan
+    # artisan
 )
 
 # UTILITIES
@@ -120,9 +120,14 @@ foreach ( UTILITY ${MULTIFURCATION_UTILITIES} )
     add_subdirectory ( ${MULTIFURCATION_UTILITIES_DIR}/${UTILITY} )
 endforeach ( UTILITY ${MULTIFURCATION_UTILITIES} )
 
+foreach ( TOOLS ${MULTIFURCATION_TOOLS} )
+    add_subdirectory ( ${MULTIFURCATION_TOOLS_DIR}/${TOOLS} )
+endforeach ( TOOLS ${MULTIFURCATION_TOOLS} )
+
 add_subdirectory ( test )
 
 target_link_libraries (
     ${MULTIFURCATION_PROJECT_NAME}
     ${MULTIFURCATION_UTILITIES}
+    ${MULTIFURCATION_TOOLS}
 )

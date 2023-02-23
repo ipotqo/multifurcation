@@ -16,17 +16,27 @@
 #include <author/author.hpp>
 
 // Tools (incl. Utilities)
+#include <academic/academic.hpp>
 
 // Libraries (incl. Tools and Utilties)
 
+// Local Headers
+#include "version.hpp"
 
 namespace multifurcation {
 
 int EntrancePoint(int argc, char *argv[]) {
     
-    std::cout << "multifurcation\n";
+    printf(
+        "MULTIFURCATION\tVERSION %d.%d.%d\n",
+        MULTIFURCATION_VERSION_MAJOR,
+        MULTIFURCATION_VERSION_MINOR,
+        MULTIFURCATION_VERSION_PATCH
+    );
     
     author::terminal ( "<utilities:author>" );
+
+    academic::terminal ( "<tools:academic>" );
     
     return EXIT_SUCCESS;
 }
