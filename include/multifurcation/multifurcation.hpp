@@ -1,3 +1,8 @@
+/**
+ * @file  multifurcation.hpp
+ * @brief Root (Surface-Level) Header
+ */
+
 #ifndef __MULTIFURCATION_HPP__
 #define __MULTIFURCATION_HPP__
 
