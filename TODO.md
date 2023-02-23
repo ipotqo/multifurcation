@@ -15,7 +15,7 @@
 - [ ] Update `README.md` incl. text, reference and diagram (Pitchfork)
 - [ ] Update `README.md` with badges e.g. DOI
 - [ ] Create `dev` branch
-- [ ] Make a release
+- [ ] Make a release / display users
 - [ ] Add other workflows via GitHub actions
 - [ ] Add `vscode` matrix
 - [ ] Update `clang-format` to include preferred format
