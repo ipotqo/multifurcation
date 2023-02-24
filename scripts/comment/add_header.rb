@@ -1,5 +1,19 @@
 #! /usr/bin/env ruby
 
+module DOXYGEN
+
+    START = "/**"
+    COMMENT = " * "
+    FINISH = " */"
+
+    def LABEL ( name, value, s_count = 1 )
+        DOXYGEN::COMMENT + "\\#{name}" + (" " * s_count) + value
+    end
+    module_function :LABEL
+    
+end
+
+
 # NOTE: ruby relative paths
 # file_path = "scripts/comments/"
 # uncommented_file_name = "test_uncommented.cpp"
@@ -21,9 +35,10 @@ commented_file = uncommented_file.gsub("uncommented", "commented")
 puts "add_header.rb | #{uncommented_file} > #{commented_file}"
 
 File.open(commented_file, 'w') do |fo|
-    fo.puts '/* COMMENT 1 */'
-    fo.puts '/* COMMENT 2 */'
-    fo.puts '/* COMMENT 3 */'
+    fo.puts DOXYGEN::START
+    fo.puts DOXYGEN::LABEL( "file", commented_file )
+    fo.puts DOXYGEN::LABEL( "brief", "..." )
+    fo.puts DOXYGEN::FINISH
     File.foreach(uncommented_file) do |line|
         fo.puts line
     end
