@@ -6,18 +6,14 @@ module DOXYGEN
     COMMENT = " * "
     FINISH = " */"
 
-    def LABEL ( name, value, s_count = 1 )
-        DOXYGEN::COMMENT + "\\#{name}" + (" " * s_count) + value
+    ALIGNMENT = 6
+
+    def LABEL ( name, value, s_count = ALIGNMENT )
+        DOXYGEN::COMMENT + "\\#{name}" + (" " * (s_count - name.length)) + value
     end
     module_function :LABEL
     
 end
-
-
-# NOTE: ruby relative paths
-# file_path = "scripts/comments/"
-# uncommented_file_name = "test_uncommented.cpp"
-# uncommented_file = file_path + uncommented_file_name
 
 def locate_file (file)
     File.open (file)
@@ -43,3 +39,8 @@ File.open(commented_file, 'w') do |fo|
         fo.puts line
     end
 end
+
+# TODO
+# Check if there is already a header before adding (or provide option to replace)
+# Rename Files (Overwrite but Keep Original)
+# Update .gitignore to not add *_uncommented.cpp and *_uncommented.hpp
