@@ -1,0 +1,59 @@
+\hypertarget{multifurcation_8hpp_source}{}\doxysection{multifurcation.\+hpp}
+\label{multifurcation_8hpp_source}\index{include/multifurcation/multifurcation.hpp@{include/multifurcation/multifurcation.hpp}}
+\mbox{\hyperlink{multifurcation_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#ifndef\ \_\_MULTIFURCATION\_HPP\_\_}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ \_\_MULTIFURCATION\_HPP\_\_}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ C\ Headers}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ C++\ Headers}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ Utilities}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <utl/utl.hpp>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <author/author.hpp>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Tools\ (incl.\ Utilities)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <tool/tool.hpp>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <academic/academic.hpp>}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ Libraries\ (incl.\ Tools\ and\ Utilties)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <innovator/innovator.hpp>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <inventor/inventor.hpp>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Local\ Headers}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ "{}version.hpp"{}}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{namespace\ }multifurcation\ \{}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{int}\ EntrancePoint(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ printf(}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}MULTIFURCATION\(\backslash\)tVERSION\ \%d.\%d.\%d\(\backslash\)n"{}},}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ MULTIFURCATION\_VERSION\_MAJOR,}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ MULTIFURCATION\_VERSION\_MINOR,}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ MULTIFURCATION\_VERSION\_PATCH}
+\DoxyCodeLine{00041\ \ \ \ \ );}
+\DoxyCodeLine{00042\ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ utl::terminal\ (\ \textcolor{stringliteral}{"{}<utilities:utl>"{}}\ );}
+\DoxyCodeLine{00044\ \ \ \ \ author::terminal\ (\ \textcolor{stringliteral}{"{}<utilities:author>"{}}\ );}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ tool::terminal\ (\ \textcolor{stringliteral}{"{}<tools:tool>"{}}\ );}
+\DoxyCodeLine{00047\ \ \ \ \ academic::terminal\ (\ \textcolor{stringliteral}{"{}<tools:academic>"{}}\ );}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ innovator::terminal\ (\ \textcolor{stringliteral}{"{}<libraries:innovator>"{}}\ );}
+\DoxyCodeLine{00050\ \ \ \ \ inventor::terminal\ (\ \textcolor{stringliteral}{"{}<libraries:inventor>"{}}\ );}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_SUCCESS;}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \}\ \textcolor{comment}{//\ namespace\ multifurcation}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ \_\_MULTIFURCATION\_HPP\_\_}}
+
+\end{DoxyCode}
