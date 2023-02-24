@@ -1,8 +1,16 @@
+---
+"version": "0.0.0"
+"draft": "true"
+---
+
+[![DOI:10.1007/978-3-319-76207-4_15](https://zenodo.org/badge/DOI/00.0000/000-0-000-00000-0_00.svg)](https://doi.org/00.0000/000-0-000-00000-0_00)
+[![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1126/science.0000000)](https://juleskreuer.eu/projekte/citation-badge/)
+
 [![License: Unlicense](https://img.shields.io/badge/license-unlicense-blue.svg)](http://unlicense.org/)
 [![Maintainer](https://img.shields.io/badge/maintainer-ipoqto-blue)](https://www.github.com/ipoqto)
-[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com/ipoqto/multifurcation)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![Pull Requests](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
+[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com/ipoqto/multifurcation)
 ![cmake](https://github.com/ipotqo/multifurcation/actions/workflows/cmake.yml/badge.svg)
 [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://ipotqo.github.io/multifurcation/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
