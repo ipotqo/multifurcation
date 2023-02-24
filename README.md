@@ -14,7 +14,7 @@
 
 ![multifurcation_banner](assets/multifurcation_banner.jpg)
 
-The `multifurcation` skeleton is a convention for a `cmake` structure with branched/nested subdivisions; it is based on the [Pitchfork](https://github.com/vector-of-bool/pitchfork) but with several modifications as discussed below. Consider this to be a starter kit for a `C++20` codebase that features numerous smaller and self-contained libraries as well as documentation (`Doxygen`), containerisation (`Docker`), unit tests (`GoogleTest`) and CI/CD functionalities (`GitHub Actions`).
+The `multifurcation` skeleton is a convention for a `cmake` structure with branched/nested subdivisions; it is based on the [Pitchfork](https://github.com/vector-of-bool/pitchfork) but with several modifications as discussed below. Consider this to be a starter kit for a `C++20` codebase that features numerous smaller and self-contained libraries as well as linter (`clang-format` & `clang-tidy`) and debugger (`gdb`) capabilities, documentation (`Doxygen`), containerisation (`Docker`), unit tests (`GoogleTest`) and CI/CD functionalities (`GitHub Actions`).
 
 ---
 

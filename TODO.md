@@ -28,3 +28,5 @@
 - [ ] Add scripts to migrate binaries from `build/` to `bin/` directories
 - [ ] Create some examples of the program input/output
 - [ ] Upgrade to `c++23` if possible
+- [ ] Integrate debugger
+- [ ] Code coverage tools

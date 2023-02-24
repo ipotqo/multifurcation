@@ -6,6 +6,8 @@
 #ifndef __MULTIFURCATION_HPP__
 #define __MULTIFURCATION_HPP__
 
+#pragma once
+
 // C Headers
 #include <cassert>
 
