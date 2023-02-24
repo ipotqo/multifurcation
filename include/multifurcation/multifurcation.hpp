@@ -15,13 +15,16 @@
 #include <iostream>
 
 // Utilities
+#include <utl/utl.hpp>
 #include <author/author.hpp>
 
 // Tools (incl. Utilities)
+#include <tool/tool.hpp>
 #include <academic/academic.hpp>
 
 // Libraries (incl. Tools and Utilties)
 #include <innovator/innovator.hpp>
+#include <inventor/inventor.hpp>
 
 // Local Headers
 #include "version.hpp"
@@ -37,11 +40,14 @@ int EntrancePoint(int argc, char *argv[]) {
         MULTIFURCATION_VERSION_PATCH
     );
     
+    utl::terminal ( "<utilities:utl>" );
     author::terminal ( "<utilities:author>" );
 
+    tool::terminal ( "<tools:tool>" );
     academic::terminal ( "<tools:academic>" );
 
     innovator::terminal ( "<libraries:innovator>" );
+    inventor::terminal ( "<libraries:inventor>" );
     
     return EXIT_SUCCESS;
 }

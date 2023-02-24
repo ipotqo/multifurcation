@@ -1,7 +1,7 @@
-#include "innovator.hpp"
+#include "inventor.hpp"
 
-void innovator::terminal ( std::string_view const& statement ) {
-    printf ( "innovator:\t%s\n", statement.data() );
+void inventor::terminal ( std::string_view const& statement ) {
+    printf ( "inventor:\t%s\n", statement.data() );
     tool::terminal( statement.data() );
     academic::terminal( statement.data() );
     utl::terminal( statement.data() );

@@ -7,12 +7,12 @@ set (
 
 set (
     PROJECT_NAME
-    innovator_lib
+    tool_lib
 )
 
 set (
     LIBRARY_NAME
-    innovator
+    tool
 )
 
 set (
@@ -22,7 +22,7 @@ set (
 
 set (
     LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/innovator.hpp
+    ${LIBRARY_HEADERS_DIR}/tool.hpp
 )
 
 set (
@@ -32,7 +32,7 @@ set (
 
 set (
     LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/innovator.cpp
+    ${LIBRARY_SOURCE_DIR}/tool.cpp
 )
 
 set (
@@ -41,18 +41,12 @@ set (
     author
 )
 
-set (
-    MULTIFURCATION_TOOLS
-    tool
-    academic
-)
-
 project (
     ${PROJECT_NAME}
     VERSION
         0.0.0
     DESCRIPTION
-        "Internal Libraries"
+        "Tailored Toolkit"
     LANGUAGES
         C CXX
 )
@@ -76,9 +70,8 @@ target_include_directories (
 )
 
 target_link_libraries (
-    innovator PUBLIC
+    tool PUBLIC
     ${MULTIFURCATION_UTILITIES}
-    ${MULTIFURCATION_TOOLS}
 )
 
 add_subdirectory ( test )

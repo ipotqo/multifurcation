@@ -48,9 +48,7 @@ set (
 set (
     MULTIFURCATION_LIBRARIES
     innovator
-    # invention
-    # creation
-    # construction
+    inventor
 )
 
 # TOOLS
@@ -64,6 +62,7 @@ set (
     MULTIFURCATION_TOOLS
     academic
     # artisan
+    tool
 )
 
 # UTILITIES
@@ -77,6 +76,7 @@ set (
     MULTIFURCATION_UTILITIES
     # artist
     author
+    utl
 )
 
 # PROJECT

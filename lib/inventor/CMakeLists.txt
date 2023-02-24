@@ -7,12 +7,12 @@ set (
 
 set (
     PROJECT_NAME
-    innovator_lib
+    inventor_lib
 )
 
 set (
     LIBRARY_NAME
-    innovator
+    inventor
 )
 
 set (
@@ -22,7 +22,7 @@ set (
 
 set (
     LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/innovator.hpp
+    ${LIBRARY_HEADERS_DIR}/inventor.hpp
 )
 
 set (
@@ -32,7 +32,7 @@ set (
 
 set (
     LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/innovator.cpp
+    ${LIBRARY_SOURCE_DIR}/inventor.cpp
 )
 
 set (
@@ -76,7 +76,7 @@ target_include_directories (
 )
 
 target_link_libraries (
-    innovator PUBLIC
+    inventor PUBLIC
     ${MULTIFURCATION_UTILITIES}
     ${MULTIFURCATION_TOOLS}
 )

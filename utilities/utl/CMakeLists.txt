@@ -7,12 +7,12 @@ set (
 
 set (
     PROJECT_NAME
-    innovator_lib
+    utl_lib
 )
 
 set (
     LIBRARY_NAME
-    innovator
+    utl
 )
 
 set (
@@ -22,7 +22,7 @@ set (
 
 set (
     LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/innovator.hpp
+    ${LIBRARY_HEADERS_DIR}/utl.hpp
 )
 
 set (
@@ -32,19 +32,7 @@ set (
 
 set (
     LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/innovator.cpp
-)
-
-set (
-    MULTIFURCATION_UTILITIES
-    utl
-    author
-)
-
-set (
-    MULTIFURCATION_TOOLS
-    tool
-    academic
+    ${LIBRARY_SOURCE_DIR}/utl.cpp
 )
 
 project (
@@ -52,7 +40,7 @@ project (
     VERSION
         0.0.0
     DESCRIPTION
-        "Internal Libraries"
+        "General Utilities Suite"
     LANGUAGES
         C CXX
 )
@@ -73,12 +61,6 @@ target_include_directories (
     ${LIBRARY_NAME} PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-)
-
-target_link_libraries (
-    innovator PUBLIC
-    ${MULTIFURCATION_UTILITIES}
-    ${MULTIFURCATION_TOOLS}
 )
 
 add_subdirectory ( test )
