@@ -2,12 +2,12 @@ cmake_minimum_required ( VERSION 3.14..3.25 )
 
 set (
     LIBRARY_TEST_NAME
-    innovation_lib_test
+    innovator_lib_test
 )
 
 set (
     LIBRARY_TEST_SOURCE
-    innovation_test.cpp
+    innovator_test.cpp
 )
 
 project ( ${LIBRARY_TEST_NAME} )

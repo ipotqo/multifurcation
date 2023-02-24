@@ -47,7 +47,7 @@ set (
 
 set (
     MULTIFURCATION_LIBRARIES
-    innovation
+    innovator
     # invention
     # creation
     # construction

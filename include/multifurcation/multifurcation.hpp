@@ -21,7 +21,7 @@
 #include <academic/academic.hpp>
 
 // Libraries (incl. Tools and Utilties)
-#include <innovation/innovation.hpp>
+#include <innovator/innovator.hpp>
 
 // Local Headers
 #include "version.hpp"
@@ -41,7 +41,7 @@ int EntrancePoint(int argc, char *argv[]) {
 
     academic::terminal ( "<tools:academic>" );
 
-    innovation::terminal ( "<libraries:innovation>" );
+    innovator::terminal ( "<libraries:innovator>" );
     
     return EXIT_SUCCESS;
 }

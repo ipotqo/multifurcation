@@ -7,12 +7,12 @@ set (
 
 set (
     PROJECT_NAME
-    innovation_lib
+    innovator_lib
 )
 
 set (
     LIBRARY_NAME
-    innovation
+    innovator
 )
 
 set (
@@ -22,7 +22,7 @@ set (
 
 set (
     LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/innovation.hpp
+    ${LIBRARY_HEADERS_DIR}/innovator.hpp
 )
 
 set (
@@ -32,7 +32,7 @@ set (
 
 set (
     LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/innovation.cpp
+    ${LIBRARY_SOURCE_DIR}/innovator.cpp
 )
 
 set (
@@ -74,7 +74,7 @@ target_include_directories (
 )
 
 target_link_libraries (
-    innovation PUBLIC
+    innovator PUBLIC
     ${MULTIFURCATION_UTILITIES}
     ${MULTIFURCATION_TOOLS}
 )

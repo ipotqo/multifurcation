@@ -1,5 +1,5 @@
-#ifndef __MULTIFURCATION_INNOVATION_HPP__
-#define __MULTIFURCATION_INNOVATION_HPP__
+#ifndef __MULTIFURCATION_INNOVATOR_HPP__
+#define __MULTIFURCATION_INNOVATOR_HPP__
 
 // C Headers
 #include <cassert>
@@ -14,10 +14,10 @@
 // Tools
 #include <academic/academic.hpp>
 
-namespace innovation {
+namespace innovator {
 
     void terminal ( std::string_view const& );
 
-} // namespace innovation
+} // namespace innovator
 
-#endif // !__MULTIFURCATION_INNOVATION_HPP__
+#endif // !__MULTIFURCATION_INNOVATOR_HPP__
