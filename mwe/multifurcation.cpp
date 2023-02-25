@@ -231,6 +231,10 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
  * Demonstration (Facade Pattern)
  */
 
+int EntrancePoint ( int argc, char* argv[] ) {
+    return EXIT_SUCCESS;
+}
+
 // ================================================================
 
 int main ( int argc, char *argv[] ) {
@@ -238,5 +242,5 @@ int main ( int argc, char *argv[] ) {
   printf ( "MULTIFURCATION VERSION %d.%d.%d\n", MULTIFURCATION_VERSION_MAJOR,
            MULTIFURCATION_VERSION_MINOR, MULTIFURCATION_VERSION_PATCH );
 
-  return EXIT_SUCCESS;
+  return EntrancePoint ( argc, argv );
 }

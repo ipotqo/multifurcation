@@ -1,0 +1,12 @@
+\hypertarget{conceptfeaturable}{}\doxysection{featurable Concept Reference}
+\label{conceptfeaturable}\index{featurable@{featurable}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ GenericT>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptfeaturable}{featurable}}\ =\ \ \textcolor{keyword}{requires}\ (\ GenericT\ value\ )\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ value.centre\ ()\ \}\ -\/>\ std::same\_as<\ location<>\ >;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ visualise\ (\ value\ )\ \}\ -\/>\ std::same\_as<\ std::string\ >;}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}

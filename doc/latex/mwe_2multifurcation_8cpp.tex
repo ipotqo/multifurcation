@@ -1,0 +1,86 @@
+\hypertarget{mwe_2multifurcation_8cpp}{}\doxysection{mwe/multifurcation.cpp File Reference}
+\label{mwe_2multifurcation_8cpp}\index{mwe/multifurcation.cpp@{mwe/multifurcation.cpp}}
+
+
+Desired Functionalities in Isolated Unit.  
+
+
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$cstddef$>$}\newline
+{\ttfamily \#include $<$array$>$}\newline
+{\ttfamily \#include $<$concepts$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$random$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$string\+\_\+view$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$type\+\_\+traits$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structlocation}{location$<$ Arithmetic\+T $>$}}
+\begin{DoxyCompactList}\small\item\em Two-\/\+Dimensional Cartesian Location. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classfield}{field$<$ Arithmetic\+T, Rows\+N, Cols\+N $>$}}
+\item 
+class \mbox{\hyperlink{classfeature}{feature$<$ Arithmetic\+T $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{conceptreal}{real}}
+\item 
+concept \mbox{\hyperlink{conceptfeaturable}{featurable}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a312bedfc50d91d7107bc14aab471b661}\label{mwe_2multifurcation_8cpp_a312bedfc50d91d7107bc14aab471b661}} 
+\#define {\bfseries MULTIFURCATION\+\_\+\+VERSION\+\_\+\+MAJOR}~0
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a4fd87087d58f858a19bb4cfaa353c837}\label{mwe_2multifurcation_8cpp_a4fd87087d58f858a19bb4cfaa353c837}} 
+\#define {\bfseries MULTIFURCATION\+\_\+\+VERSION\+\_\+\+MINOR}~0
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a7470c7e86e9e1f6769210b08ca3d552f}\label{mwe_2multifurcation_8cpp_a7470c7e86e9e1f6769210b08ca3d552f}} 
+\#define {\bfseries MULTIFURCATION\+\_\+\+VERSION\+\_\+\+PATCH}~0
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}\label{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}} 
+using {\bfseries lattice\+\_\+t} = std\+::size\+\_\+t
+\begin{DoxyCompactList}\small\item\em Two-\/\+Dimensional Discretised Scalar Field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a5d8ab88e463b2512987c7a87fc400ebe}\label{mwe_2multifurcation_8cpp_a5d8ab88e463b2512987c7a87fc400ebe}} 
+void {\bfseries visualise} (std\+::vector$<$ \mbox{\hyperlink{classfeature}{feature}}$<$$>$ $>$ const \&feature\+\_\+collection)
+\item 
+int \mbox{\hyperlink{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}{Entrance\+Point}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{mwe_2multifurcation_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Desired Functionalities in Isolated Unit. 
+
+MULTIFURCATION (C) 2023 // TIM PLEASETH @\+IPOTQO
+
+THIS FILE IS PART OF THE MULTIFURCATION PROJECT\+: HTTPS\+://\+WWW.GITHUB.\+COM/\+IPOTQO/\+MULTIFURCATION
+
+LICENSE\+: UNLICENSE
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \char`\"{}\+AS IS\char`\"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}\label{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}} 
+\index{multifurcation.cpp@{multifurcation.cpp}!EntrancePoint@{EntrancePoint}}
+\index{EntrancePoint@{EntrancePoint}!multifurcation.cpp@{multifurcation.cpp}}
+\doxysubsubsection{\texorpdfstring{EntrancePoint()}{EntrancePoint()}}
+{\footnotesize\ttfamily int Entrance\+Point (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+Simulation (Factory Method Pattern) Contour (Builder Pattern) Visualisation (Builder Pattern) Demonstration (Facade Pattern) 
