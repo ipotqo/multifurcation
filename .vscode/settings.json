@@ -1,5 +1,20 @@
 {
     "files.associations": {
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "__locale": "cpp",
+        "atomic": "cpp",
+        "bitset": "cpp",
+        "iterator": "cpp",
+        "string": "cpp",
+        "ios": "cpp",
+        "iosfwd": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "memory": "cpp",
+        "mutex": "cpp",
+        "ostream": "cpp",
+        "streambuf": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp"
     }
 }

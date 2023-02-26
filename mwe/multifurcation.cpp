@@ -37,6 +37,7 @@
 #include <concepts>
 #include <fstream>
 #include <iostream>
+#include <numeric>
 #include <random>
 #include <string>
 #include <string_view>
@@ -58,20 +59,9 @@ concept measurable = std::is_floating_point_v< GenericT >;
 
 template< typename GenericT >
 concept rootable = requires ( GenericT value ) {
-    { std::is_floating_point_v<GenericT> };
-    { value >= 0. };
-};
-
-template< measurable ArithmeticT = float >
-struct location;
-
-template< typename GenericT >
-concept featurable = requires ( GenericT value ) {
-                       { value.centre () } -> std::same_as< location<> >;
-                       {
-                         visualise ( value )
-                         } -> std::same_as< std::string_view >;
-                     };
+                     { std::is_floating_point_v< GenericT > };
+                     { value >= 0. };
+                   };
 
 // ================================================================
 
@@ -82,30 +72,47 @@ public:
 
   template< measurable ArithmeticT >
   static constexpr ArithmeticT ANCHOR_HORIZONTAL =
-      static_const< ArithmeticT > ( 0.f );
+      static_cast< ArithmeticT > ( 0.f );
 
   template< measurable ArithmeticT >
   static constexpr ArithmeticT ANCHOR_VERTICAL =
-      static_const< ArithmeticT > ( 0.f );
+      static_cast< ArithmeticT > ( 0.f );
 
   template< measurable ArithmeticT >
   static constexpr ArithmeticT RESOLUTION_HORIZONTAL =
-      static_const< ArithmeticT > ( 0.f );
+      static_cast< ArithmeticT > ( 0.f );
 
   template< measurable ArithmeticT >
   static constexpr ArithmeticT RESOLUTION_VERTICAL =
-      static_const< ArithmeticT > ( 0.f );
+      static_cast< ArithmeticT > ( 0.f );
 
   template< measurable ArithmeticT >
-  static constexpr ArithmeticT FIELD_VALUE =
-      static_const< ArithmeticT > ( 0.f );
+  static constexpr ArithmeticT FIELD_VALUE = static_cast< ArithmeticT > ( 0.f );
 };
+
+// ================================================================
+
+/*
+template< typename GenericT >
+concept featurable = requires ( GenericT value ) {
+                       { value.centre () } -> std::same_as< location<> >;
+                       {
+                         visualise ( value )
+                         } -> std::same_as< std::string_view >;
+                     };
+*/
 
 // ================================================================
 
 /**
  * \brief Two-Dimensional Cartesian Location
  */
+
+template< measurable ArithmeticT = float >
+struct location;
+
+template< measurable ArithmeticT >
+std::ostream& operator<< ( std::ostream&, location< ArithmeticT > const& );
 
 template< measurable ArithmeticT >
 struct location {
@@ -153,37 +160,37 @@ struct location {
 
   // --------------------------------
 
-  friend std::ostream& operator<< ( std::ostream&,
-                                    location< ArithmeticT > const& );
+  friend std::ostream&
+  operator<< < ArithmeticT > ( std::ostream&, location< ArithmeticT > const& );
 
   // --------------------------------
 
-  ArithmeticT          horizontal;
-  ArithmeticT          vertical;
+  ArithmeticT horizontal;
+  ArithmeticT vertical;
 };
 
 template< measurable ArithmeticT >
-inline constexpr location< ArithmeticT >
-operator+ ( location< ArithmeticT > lhs, location< ArithmeticT > const& rhs ) {
+inline constexpr auto operator+ ( location< ArithmeticT >        lhs,
+                                  location< ArithmeticT > const& rhs ) {
   lhs += rhs;
   return lhs;
 }
 
 template< measurable ArithmeticT >
-inline constexpr location< ArithmeticT >
-operator- ( location< ArithmeticT > lhs, location< ArithmeticT > const& rhs ) {
+inline constexpr auto operator- ( location< ArithmeticT >        lhs,
+                                  location< ArithmeticT > const& rhs ) {
   lhs -= rhs;
   return lhs;
 }
 
 template< measurable ArithmeticT >
-inline constexpr bool operator== ( location< ArithmeticT > const& lhs,
+inline constexpr auto operator== ( location< ArithmeticT > const& lhs,
                                    location< ArithmeticT > const& rhs ) {
   return ( lhs.horizontal == rhs.horizontal && lhs.vertical == rhs.vertical );
 }
 
 template< measurable ArithmeticT >
-inline constexpr bool operator!= ( location< ArithmeticT > const& lhs,
+inline constexpr auto operator!= ( location< ArithmeticT > const& lhs,
                                    location< ArithmeticT > const& rhs ) {
   return !operator== ( lhs, rhs );
 }
@@ -196,12 +203,12 @@ std::ostream& operator<< ( std::ostream                 & os,
 }
 
 template< measurable ArithmeticT >
-ArithmeticT constexpr norm ( location< ArithmeticT > const& l ) {
+auto constexpr norm ( location< ArithmeticT > const& l ) {
   return hypot ( l.horizontal, l.vertical );
 }
 
 template< measurable ArithmeticT >
-ArithmeticT constexpr orientation ( location< ArithmeticT > const& l ) {
+auto constexpr orientation ( location< ArithmeticT > const& l ) {
   return atan2 ( l.vertical, l.horizontal );
 }
 
@@ -216,55 +223,103 @@ using index_t   = std::size_t;
 
 template< measurable ArithmeticT = float, lattice_t RowsN = FALLBACK::ROWS,
           lattice_t ColsN = FALLBACK::COLS >
+class field;
+
+template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+std::ostream& operator<< ( std::ostream&,
+                           field< ArithmeticT, RowsN, ColsN > const& );
+
+template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
 class field {
 
 public:
   explicit field< ArithmeticT, RowsN, ColsN > () {
-    for ( auto& v : this->value ) {
-      v = FALLBACK::FIELD_VALUE< ArithmeticT >;
+    for ( auto& e : this->element ) {
+      e = FALLBACK::FIELD_VALUE< ArithmeticT >;
     }
   }
 
-  // --------------------------------
-
-  void constexpr set_reference_coordinate ( ArithmeticT const& h, ArithmeticT const& v ) {
-    this->anchor = location< ArithmeticT > ( h, v );
-  }
-
-  void constexpr set_horizontal_dimension ( ArithmeticT const& h ) {
-    // if ( h > anchor.horizontal ) { resolution }
-    // this->resolution.first = ( h -  )
-  }
-  void constexpr set_vertical_dimension ();
+  ~field< ArithmeticT, RowsN, ColsN > () noexcept = default;
 
   // --------------------------------
 
-  void constexpr set_value ( index_t const& row, index_t const& col ) {}
-
-    // --------------------------------
-
-  ArithmeticT constexpr horizontal_resolution () const {
-    return (this->anchor.second.horizontal - this->anchor.first.horizontal)/2.;
+  auto constexpr set_boundaries ( location< ArithmeticT > const& south_west,
+                                  location< ArithmeticT > const& north_east ) {
+    this->anchor.first  = south_west;
+    this->anchor.second = north_east;
   }
 
-  ArithmeticT constexpr vertical_resolution () const {
-    return (this->anchor.second.vertical - this->anchor.first.vertical)/2.;
+  // --------------------------------
+
+  auto constexpr horizontal_resolution () const {
+    return fabs ( std::midpoint ( this->anchor.second.horizontal -
+                                  this->anchor.first.horizontal ) );
   }
+
+  auto constexpr vertical_resolution () const {
+    return fabs ( std::midpoint ( this->anchor.second.vertical -
+                                  this->anchor.first.vertical ) );
+  }
+
+public:
+  auto& value ( index_t const& row, index_t const& col ) {
+    return this->element[rindex ( row, col )];
+  }
+
+  auto const& value ( index_t const& row, index_t const& col ) const {
+    return this->element[rindex ( row, col )];
+  }
+
+  // --------------------------------
+
+  friend std::ostream& operator<< < ArithmeticT, RowsN, ColsN > (
+      std::ostream&, field< ArithmeticT, RowsN, ColsN > const& );
 
 private:
-  // TODO: index_t
+  auto& operator[] ( index_t const& index ) {
+    return this->element.at ( index );
+  }
+
+  auto const& operator[] ( index_t const& index ) const {
+    return this->element.at ( index );
+  }
+
+  // rolled index
+  inline index_t constexpr rindex ( index_t const& row, index_t const& col ) {
+    return ( row % RowsN ) + ( col * ColsN );
+  }
 
 private:
   using coordinate = location< ArithmeticT >;
   using domain     = std::pair< coordinate, coordinate >;
+  using matrix     = std::array< ArithmeticT, RowsN * ColsN >;
 
 private:
-  std::array< ArithmeticT, RowsN * ColsN > value;
-  domain anchor;
-
-  // std::pair< ArithmeticT, ArithmeticT >    resolution;
-  // location< ArithmeticT >                  anchor; // south-west
+  matrix element; // rolled or vectorised form
+  domain anchor;  // south-west and north-east corners
 };
+
+template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+std::ostream& operator<< ( std::ostream                            & os,
+                           field< ArithmeticT, RowsN, ColsN > const& f ) {
+
+                            
+
+  /*
+
+  index_t row = 0;
+index_t col = 0;
+for ( auto e : f.element ) {
+  os << e << '\t';
+  if ( ++col % ColsN == 0 && ++row < RowsN ) {
+      os << '\n';
+      col = 0;
+  }
+}
+*/
+
+  return os;
+}
 
 // ================================================================
 
@@ -388,6 +443,15 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
 // ================================================================
 
 /**
+ * Test Suite (Prototype Declaration)
+ */
+int test_location ();
+int test_field ();
+int test ();
+
+// ================================================================
+
+/**
  * Demonstration (Facade Pattern)
  */
 
@@ -402,5 +466,63 @@ int main ( int argc, char *argv[] ) {
   printf ( "MULTIFURCATION VERSION %d.%d.%d\n", MULTIFURCATION_VERSION_MAJOR,
            MULTIFURCATION_VERSION_MINOR, MULTIFURCATION_VERSION_PATCH );
 
-  return EntrancePoint ( argc, argv );
+  if ( test () == 0 )
+    return EntrancePoint ( argc, argv );
+  else {
+    fprintf ( stderr, "ERROR" );
+    return EXIT_FAILURE;
+  }
+}
+
+// ================================================================
+
+/**
+ * Test Suite (Implementation)
+ */
+
+// Random Float
+float rndf () {
+  static std::random_device               RANDOM_DEVICE;
+  static std::mt19937                     ENGINE ( RANDOM_DEVICE () );
+  static std::uniform_real_distribution<> DISTRIBUTION ( -10, 10 );
+  return DISTRIBUTION ( ENGINE );
+}
+
+int test () {
+
+  auto status_location = test_location ();
+  auto status_field    = test_field ();
+
+  return EXIT_SUCCESS;
+}
+
+int test_location () {
+
+  {
+
+    auto const        h = rndf ();
+    auto const        v = rndf ();
+
+    location< float > x ( h, v );
+
+    std::cout << x << '\n';
+  }
+
+  return 0;
+}
+
+int test_field () {
+
+  {
+
+    field< double, 4, 4 > f;
+
+    f.value ( 0, 0 ) = rndf ();
+
+    f.value ( 0, 1 ) = rndf ();
+
+    std::cout << f << '\n';
+  }
+
+  return 0;
 }
