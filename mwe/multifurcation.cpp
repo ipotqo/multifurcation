@@ -37,6 +37,8 @@
 #include <concepts>
 #include <fstream>
 #include <iostream>
+#include <memory>
+#include <mutex>
 #include <numeric>
 #include <random>
 #include <string>
@@ -62,6 +64,21 @@ concept rootable = requires ( GenericT value ) {
                      { std::is_floating_point_v< GenericT > };
                      { value >= 0. };
                    };
+
+// ================================================================
+
+auto constexpr interval ( auto const& minimum, auto const& maximum,
+                          auto const& discretisation ) {
+  return fabs ( maximum - minimum ) / ( discretisation - 1 );
+}
+
+// Random Float
+auto rndf () {
+  static std::random_device               RANDOM_DEVICE;
+  static std::mt19937                     ENGINE ( RANDOM_DEVICE () );
+  static std::uniform_real_distribution<> DISTRIBUTION ( -10, 10 );
+  return DISTRIBUTION ( ENGINE );
+}
 
 // ================================================================
 
@@ -130,7 +147,7 @@ struct location {
   // --------------------------------
 
   location< ArithmeticT >& operator= ( location< ArithmeticT > other ) {
-    std::swap( horizontal, other.horizontal );
+    std::swap ( horizontal, other.horizontal );
     std::swap ( vertical, other.vertical );
     return *this;
   }
@@ -245,21 +262,39 @@ public:
   // --------------------------------
 
   auto set_boundaries ( location< ArithmeticT > const& south_west,
-                                  location< ArithmeticT > const& north_east ) {
+                        location< ArithmeticT > const& north_east ) {
     this->anchor.first  = south_west;
     this->anchor.second = north_east;
   }
 
   // --------------------------------
 
+  // TODO: correction resolution calculations
+
+  /*
+ArithmeticT division = [](ArithmeticT minimum, ArithmeticT maximum, lattice_t
+interval ) { return fabs ( maximum - minimum ) / ( interval - 1 );
+};
+  */
+
   auto constexpr horizontal_resolution () const {
-    return fabs ( std::midpoint ( this->anchor.second.horizontal,
-                                  this->anchor.first.horizontal ) );
+    return interval ( this->anchor.first.horizontal,
+                      this->anchor.second.horizontal, RowsN );
   }
 
   auto constexpr vertical_resolution () const {
-    return fabs ( std::midpoint ( this->anchor.second.vertical,
-                                  this->anchor.first.vertical ) );
+    return interval ( this->anchor.first.vertical, this->anchor.second.vertical,
+                      ColsN );
+  }
+
+  auto constexpr site ( lattice_t const& row, lattice_t const& col ) const {
+
+    location< ArithmeticT > const translation ( row * horizontal_resolution (),
+                                                col * vertical_resolution () );
+
+    return anchor.first + translation;
+
+    // TODO: symmetric version which uses anchor.second & translation / 2
   }
 
 public:
@@ -287,7 +322,7 @@ private:
 
   // rolled index
   inline index_t constexpr rindex ( index_t const& row, index_t const& col ) {
-    return ( row % RowsN ) + ( col * ColsN );
+    return ( row % RowsN ) + ( col % ColsN * ColsN );
   }
 
 private:
@@ -304,27 +339,19 @@ template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
 std::ostream& operator<< ( std::ostream                            & os,
                            field< ArithmeticT, RowsN, ColsN > const& f ) {
 
- // TODO: NEAT PRINT
+  // TODO: NEAT PRINT
 
-    auto const hs = f.anchor.first.horizontal;
-    auto const vs = f.anchor.first.vertical;
+  std::size_t row = 0;
+  std::size_t col = 0;
 
-    auto const hr = f.horizontal_resolution();
-    auto const vr = f.vertical_resolution ();
+  for ( auto e : f.element ) {
 
-    std::size_t row = 0;
-    std::size_t col = 0;
-
-    auto site = [](ArithmeticT const& start, ArithmeticT const& resolution, lattice_t index){
-        return start + index * resolution;
-    };
-
- for ( auto e : f.element ) {
-    os << site (hs,hr,row) << '\t' << site(vs,vr,col) << '\t' << e << '\n';
+    os << f.site ( row, col ) << '\t' << e << '\n';
     if ( ++col % ColsN == 0 && ++row < RowsN ) {
-        os << '\n';
+      os << '\n';
+      col = 0;
     }
- }
+  }
 
   return os;
 }
@@ -376,6 +403,27 @@ private:
     FeatureT m_feature;
   };
 
+  // Extended Model: Policy-Based Design (Visualisation Strategy)
+  template< typename FeatureT, typename VisualisationStr >
+  struct FeatureExtendedModel final : public FeatureNotion {
+
+    explicit FeatureExtendedModel ( FeatureT         i_feature,
+                                    VisualisationStr i_visualiser )
+        : m_feature { std::move ( i_feature ) }
+        , m_visualiser { std::move ( i_visualiser ) } {}
+
+    void visualisation () const override {
+      m_visualiser ( m_feature );
+    }
+
+    std::unique_ptr< FeatureNotion > clone () const override {
+      return std::make_unique< FeatureExtendedModel > ( *this );
+    }
+
+    FeatureT         m_feature;
+    VisualisationStr m_visualiser;
+  };
+
   friend void visualise ( feature const& a_feature ) {
     a_feature.pimpl->visualisation ();
   }
@@ -392,15 +440,12 @@ public:
       : pimpl { std::make_unique< FeatureModel< FeatureT > > (
             std::move ( i_feature ) ) } {}
 
-  /*
   // Note: dependency injection with visualisation strategy
   template< typename FeatureT, typename VisualisationStr >
   feature ( FeatureT i_feature, VisualisationStr i_visualiser )
-      : pimpl {
-  std::make_unique<FeatureExtendedModel<FeatureT,VisualisationStr>>(
-  std::move(i_feature), std::move(i_visualiser) ) }
-  {}
-  */
+      : pimpl { std::make_unique<
+            FeatureExtendedModel< FeatureT, VisualisationStr > > (
+            std::move ( i_feature ), std::move ( i_visualiser ) ) } {}
 
   // Copy Operations
   feature ( feature const& other )
@@ -435,6 +480,9 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
 /**
  * Simulation (Factory Method Pattern)
  */
+
+// TODO thread & mutex lock
+// TODO std::accummulate with lambda idiom
 
 // ================================================================
 
@@ -488,17 +536,9 @@ int main ( int argc, char *argv[] ) {
  * Test Suite (Implementation)
  */
 
-// Random Float
-float rndf () {
-  static std::random_device               RANDOM_DEVICE;
-  static std::mt19937                     ENGINE ( RANDOM_DEVICE () );
-  static std::uniform_real_distribution<> DISTRIBUTION ( -10, 10 );
-  return DISTRIBUTION ( ENGINE );
-}
-
 int test () {
 
-  auto status_location = test_location ();
+  // auto status_location = test_location ();
   // auto status_field    = test_field ();
 
   return EXIT_SUCCESS;
@@ -508,11 +548,10 @@ int test_location () {
 
   {
 
-    auto const        h = rndf ();
-    auto const        v = rndf ();
+    using lctn = location< float >;
 
-    location< float > a ( h, v );
-    location< float > b ( 0., 0. );
+    lctn a ( rndf (), rndf () );
+    lctn b ( 0., 0. );
 
     std::cout << a << '\n';
     std::cout << b << '\n';
@@ -520,7 +559,6 @@ int test_location () {
     b = a;
 
     std::cout << b << '\n';
-
   }
 
   return 0;
@@ -530,17 +568,21 @@ int test_field () {
 
   {
 
-    field< float, 4, 4 > f;
+    using fld  = field< float, 4, 4 >;
+    using lctn = location< float >;
 
-    location<float> sw (0,0);
-    location<float> ne (1,1);
+    fld  f;
+    lctn sw ( 0, 0 );
+    lctn ne ( 1, 1 );
 
     f.set_boundaries ( sw, ne );
+
+    f.set_boundaries ( lctn ( 0.f, 0.f ), lctn ( 10.f, 10.f ) );
 
     f.value ( 0, 0 ) = 0;
     f.value ( 1, 0 ) = 1;
     f.value ( 2, 0 ) = 2;
-    f.value ( 3, 0 ) = 3;
+    f.value ( 3, 3 ) = 3;
 
     std::cout << f << '\n';
   }
