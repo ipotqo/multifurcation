@@ -130,7 +130,8 @@ struct location {
   // --------------------------------
 
   location< ArithmeticT >& operator= ( location< ArithmeticT > other ) {
-    std::swap ( *this, other );
+    std::swap( horizontal, other.horizontal );
+    std::swap ( vertical, other.vertical );
     return *this;
   }
 
@@ -243,7 +244,7 @@ public:
 
   // --------------------------------
 
-  auto constexpr set_boundaries ( location< ArithmeticT > const& south_west,
+  auto set_boundaries ( location< ArithmeticT > const& south_west,
                                   location< ArithmeticT > const& north_east ) {
     this->anchor.first  = south_west;
     this->anchor.second = north_east;
@@ -252,12 +253,12 @@ public:
   // --------------------------------
 
   auto constexpr horizontal_resolution () const {
-    return fabs ( std::midpoint ( this->anchor.second.horizontal -
+    return fabs ( std::midpoint ( this->anchor.second.horizontal,
                                   this->anchor.first.horizontal ) );
   }
 
   auto constexpr vertical_resolution () const {
-    return fabs ( std::midpoint ( this->anchor.second.vertical -
+    return fabs ( std::midpoint ( this->anchor.second.vertical,
                                   this->anchor.first.vertical ) );
   }
 
@@ -295,7 +296,7 @@ private:
   using matrix     = std::array< ArithmeticT, RowsN * ColsN >;
 
 private:
-  matrix element; // rolled or vectorised form
+  matrix element; // rolled vectorised form
   domain anchor;  // south-west and north-east corners
 };
 
@@ -303,20 +304,27 @@ template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
 std::ostream& operator<< ( std::ostream                            & os,
                            field< ArithmeticT, RowsN, ColsN > const& f ) {
 
-                            
+ // TODO: NEAT PRINT
 
-  /*
+    auto const hs = f.anchor.first.horizontal;
+    auto const vs = f.anchor.first.vertical;
 
-  index_t row = 0;
-index_t col = 0;
-for ( auto e : f.element ) {
-  os << e << '\t';
-  if ( ++col % ColsN == 0 && ++row < RowsN ) {
-      os << '\n';
-      col = 0;
-  }
-}
-*/
+    auto const hr = f.horizontal_resolution();
+    auto const vr = f.vertical_resolution ();
+
+    std::size_t row = 0;
+    std::size_t col = 0;
+
+    auto site = [](ArithmeticT const& start, ArithmeticT const& resolution, lattice_t index){
+        return start + index * resolution;
+    };
+
+ for ( auto e : f.element ) {
+    os << site (hs,hr,row) << '\t' << site(vs,vr,col) << '\t' << e << '\n';
+    if ( ++col % ColsN == 0 && ++row < RowsN ) {
+        os << '\n';
+    }
+ }
 
   return os;
 }
@@ -491,7 +499,7 @@ float rndf () {
 int test () {
 
   auto status_location = test_location ();
-  auto status_field    = test_field ();
+  // auto status_field    = test_field ();
 
   return EXIT_SUCCESS;
 }
@@ -503,9 +511,16 @@ int test_location () {
     auto const        h = rndf ();
     auto const        v = rndf ();
 
-    location< float > x ( h, v );
+    location< float > a ( h, v );
+    location< float > b ( 0., 0. );
 
-    std::cout << x << '\n';
+    std::cout << a << '\n';
+    std::cout << b << '\n';
+
+    b = a;
+
+    std::cout << b << '\n';
+
   }
 
   return 0;
@@ -515,11 +530,17 @@ int test_field () {
 
   {
 
-    field< double, 4, 4 > f;
+    field< float, 4, 4 > f;
 
-    f.value ( 0, 0 ) = rndf ();
+    location<float> sw (0,0);
+    location<float> ne (1,1);
 
-    f.value ( 0, 1 ) = rndf ();
+    f.set_boundaries ( sw, ne );
+
+    f.value ( 0, 0 ) = 0;
+    f.value ( 1, 0 ) = 1;
+    f.value ( 2, 0 ) = 2;
+    f.value ( 3, 0 ) = 3;
 
     std::cout << f << '\n';
   }
