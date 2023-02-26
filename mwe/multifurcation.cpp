@@ -31,13 +31,16 @@
 #include <cmath>
 #include <cstddef>
 
+#include <algorithm>
 #include <array>
+#include <chrono>
 #include <concepts>
 #include <fstream>
 #include <iostream>
 #include <random>
 #include <string>
 #include <string_view>
+#include <thread>
 #include <tuple>
 #include <type_traits>
 #include <vector>
@@ -51,16 +54,52 @@ namespace libraries {}
 // ================================================================
 
 template< typename GenericT >
-concept real = std::is_floating_point_v< GenericT >;
+concept measurable = std::is_floating_point_v< GenericT >;
 
-template< real ArithmeticT = float >
+template< typename GenericT >
+concept rootable = requires ( GenericT value ) {
+    { std::is_floating_point_v<GenericT> };
+    { value >= 0. };
+};
+
+template< measurable ArithmeticT = float >
 struct location;
 
 template< typename GenericT >
 concept featurable = requires ( GenericT value ) {
                        { value.centre () } -> std::same_as< location<> >;
-                       { visualise ( value ) } -> std::same_as< std::string >;
+                       {
+                         visualise ( value )
+                         } -> std::same_as< std::string_view >;
                      };
+
+// ================================================================
+
+class FALLBACK {
+public:
+  static constexpr std::size_t ROWS = 256;
+  static constexpr std::size_t COLS = 256;
+
+  template< measurable ArithmeticT >
+  static constexpr ArithmeticT ANCHOR_HORIZONTAL =
+      static_const< ArithmeticT > ( 0.f );
+
+  template< measurable ArithmeticT >
+  static constexpr ArithmeticT ANCHOR_VERTICAL =
+      static_const< ArithmeticT > ( 0.f );
+
+  template< measurable ArithmeticT >
+  static constexpr ArithmeticT RESOLUTION_HORIZONTAL =
+      static_const< ArithmeticT > ( 0.f );
+
+  template< measurable ArithmeticT >
+  static constexpr ArithmeticT RESOLUTION_VERTICAL =
+      static_const< ArithmeticT > ( 0.f );
+
+  template< measurable ArithmeticT >
+  static constexpr ArithmeticT FIELD_VALUE =
+      static_const< ArithmeticT > ( 0.f );
+};
 
 // ================================================================
 
@@ -68,7 +107,7 @@ concept featurable = requires ( GenericT value ) {
  * \brief Two-Dimensional Cartesian Location
  */
 
-template< real ArithmeticT >
+template< measurable ArithmeticT >
 struct location {
 
   explicit location ()
@@ -79,9 +118,92 @@ struct location {
       : horizontal { h }
       , vertical { v } {}
 
-  ArithmeticT horizontal;
-  ArithmeticT vertical;
+  ~location< ArithmeticT > () noexcept = default;
+
+  // --------------------------------
+
+  location< ArithmeticT >& operator= ( location< ArithmeticT > other ) {
+    std::swap ( *this, other );
+    return *this;
+  }
+
+  location< ArithmeticT >& operator+= ( location< ArithmeticT > const& rhs ) {
+    this->horizontal += rhs.horizontal;
+    this->vertical   += rhs.vertical;
+    return *this;
+  }
+
+  location< ArithmeticT >& operator-= ( location< ArithmeticT > const& rhs ) {
+    this->horizontal -= rhs.horizontal;
+    this->vertical   -= rhs.vertical;
+    return *this;
+  }
+
+  location< ArithmeticT >& operator*= ( ArithmeticT const& rhs ) {
+    this->horizontal *= rhs;
+    this->vertical   *= rhs;
+    return *this;
+  }
+
+  location< ArithmeticT >& operator/= ( ArithmeticT const& rhs ) {
+    this->horizontal /= rhs;
+    this->vertical   /= rhs;
+    return *this;
+  }
+
+  // --------------------------------
+
+  friend std::ostream& operator<< ( std::ostream&,
+                                    location< ArithmeticT > const& );
+
+  // --------------------------------
+
+  ArithmeticT          horizontal;
+  ArithmeticT          vertical;
 };
+
+template< measurable ArithmeticT >
+inline constexpr location< ArithmeticT >
+operator+ ( location< ArithmeticT > lhs, location< ArithmeticT > const& rhs ) {
+  lhs += rhs;
+  return lhs;
+}
+
+template< measurable ArithmeticT >
+inline constexpr location< ArithmeticT >
+operator- ( location< ArithmeticT > lhs, location< ArithmeticT > const& rhs ) {
+  lhs -= rhs;
+  return lhs;
+}
+
+template< measurable ArithmeticT >
+inline constexpr bool operator== ( location< ArithmeticT > const& lhs,
+                                   location< ArithmeticT > const& rhs ) {
+  return ( lhs.horizontal == rhs.horizontal && lhs.vertical == rhs.vertical );
+}
+
+template< measurable ArithmeticT >
+inline constexpr bool operator!= ( location< ArithmeticT > const& lhs,
+                                   location< ArithmeticT > const& rhs ) {
+  return !operator== ( lhs, rhs );
+}
+
+template< measurable ArithmeticT >
+std::ostream& operator<< ( std::ostream                 & os,
+                           location< ArithmeticT > const& l ) {
+  os << l.horizontal << '\t' << l.vertical;
+  return os;
+}
+
+template< measurable ArithmeticT >
+ArithmeticT constexpr norm ( location< ArithmeticT > const& l ) {
+  return hypot ( l.horizontal, l.vertical );
+}
+
+template< measurable ArithmeticT >
+ArithmeticT constexpr orientation ( location< ArithmeticT > const& l ) {
+  return atan2 ( l.vertical, l.horizontal );
+}
 
 // ================================================================
 
@@ -90,20 +212,58 @@ struct location {
  */
 
 using lattice_t = std::size_t;
+using index_t   = std::size_t;
 
-template< real ArithmeticT = float, lattice_t RowsN = 256,
-          lattice_t ColsN = 256 >
-class field : public std::array< ArithmeticT, RowsN * ColsN > {
+template< measurable ArithmeticT = float, lattice_t RowsN = FALLBACK::ROWS,
+          lattice_t ColsN = FALLBACK::COLS >
+class field {
+
 public:
-  explicit field< ArithmeticT, RowsN, ColsN > ()
-      : std::array< ArithmeticT, RowsN * ColsN > () {}
+  explicit field< ArithmeticT, RowsN, ColsN > () {
+    for ( auto& v : this->value ) {
+      v = FALLBACK::FIELD_VALUE< ArithmeticT >;
+    }
+  }
+
+  // --------------------------------
+
+  void constexpr set_reference_coordinate ( ArithmeticT const& h, ArithmeticT const& v ) {
+    this->anchor = location< ArithmeticT > ( h, v );
+  }
+
+  void constexpr set_horizontal_dimension ( ArithmeticT const& h ) {
+    // if ( h > anchor.horizontal ) { resolution }
+    // this->resolution.first = ( h -  )
+  }
+  void constexpr set_vertical_dimension ();
+
+  // --------------------------------
+
+  void constexpr set_value ( index_t const& row, index_t const& col ) {}
+
+    // --------------------------------
+
+  ArithmeticT constexpr horizontal_resolution () const {
+    return (this->anchor.second.horizontal - this->anchor.first.horizontal)/2.;
+  }
+
+  ArithmeticT constexpr vertical_resolution () const {
+    return (this->anchor.second.vertical - this->anchor.first.vertical)/2.;
+  }
 
 private:
   // TODO: index_t
 
 private:
-  location< ArithmeticT > anchor; // south-west
-  std::pair< ArithmeticT, ArithmeticT > resolution;
+  using coordinate = location< ArithmeticT >;
+  using domain     = std::pair< coordinate, coordinate >;
+
+private:
+  std::array< ArithmeticT, RowsN * ColsN > value;
+  domain anchor;
+
+  // std::pair< ArithmeticT, ArithmeticT >    resolution;
+  // location< ArithmeticT >                  anchor; // south-west
 };
 
 // ================================================================
@@ -112,21 +272,21 @@ private:
  * Feature (Type Erasure Pattern)
  */
 
-template< real ArithmeticT = float >
+template< measurable ArithmeticT = float >
 class feature {
 
 private:
   // "Concept"
   struct FeatureNotion {
 
-    virtual ~FeatureNotion () = default;
+    virtual ~FeatureNotion ()                                       = default;
 
     // clone function: c.f. copy operations
-    virtual std::unique_ptr< FeatureNotion > clone () const = 0;
+    virtual std::unique_ptr< FeatureNotion > clone () const         = 0;
 
     // doers
     // virtual void serialisation () const = 0;
-    virtual void visualisation () const = 0;
+    virtual void                             visualisation () const = 0;
   };
 
   template< typename FeatureT >
@@ -231,8 +391,8 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
  * Demonstration (Facade Pattern)
  */
 
-int EntrancePoint ( int argc, char* argv[] ) {
-    return EXIT_SUCCESS;
+int EntrancePoint ( int argc, char *argv[] ) {
+  return EXIT_SUCCESS;
 }
 
 // ================================================================
