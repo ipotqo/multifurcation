@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['featurable_0',['featurable',['../conceptfeaturable.html',1,'']]]
+  ['measurable_0',['measurable',['../conceptmeasurable.html',1,'']]]
 ];
