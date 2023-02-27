@@ -243,6 +243,12 @@ template< measurable ArithmeticT = float, demarcation_t RowsN = FALLBACK::ROWS,
           demarcation_t ColsN = FALLBACK::COLS >
 class field;
 
+template< measurable ArithmeticT = float, demarcation_t RowsN = FALLBACK::ROWS,
+          demarcation_t ColsN = FALLBACK::COLS >
+void initialisation ( field< ArithmeticT, RowsN, ColsN >&,
+                      ArithmeticT ( * ) ( ArithmeticT const&,
+                                          ArithmeticT const& ) );
+
 template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 std::ostream& operator<< ( std::ostream&,
                            field< ArithmeticT, RowsN, ColsN > const& );
@@ -290,6 +296,12 @@ public:
     // TODO: symmetric version which uses anchor.second & translation / 2
   }
 
+  // --------------------------------
+
+  // TODO: overloaded operators
+
+  // --------------------------------
+
 public:
   auto& value ( index_t const& row, index_t const& col ) {
     return this->element[rindex ( row, col )];
@@ -302,6 +314,12 @@ public:
   // --------------------------------
 
   // TODO: maximum and minimum element
+
+  // --------------------------------
+
+  friend void initialisation< ArithmeticT, RowsN, ColsN > (
+      field< ArithmeticT, RowsN, ColsN >&,
+      ArithmeticT ( * ) ( ArithmeticT const&, ArithmeticT const& ) );
 
   // --------------------------------
 
@@ -332,16 +350,36 @@ private:
   domain anchor;  // south-west and north-east corners
 };
 
+// ----------------------------------------------------------------
+
+template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
+void initialisation ( field< ArithmeticT, RowsN, ColsN >& f,
+                      ArithmeticT ( *m ) ( ArithmeticT const&,
+                                           ArithmeticT const& ) ) {
+
+  demarcation_t row = 0;
+  demarcation_t col = 0;
+  for ( auto& e : f.element ) {
+    auto s = f.site ( row, col );
+    e      = m ( s.horizontal, s.vertical );
+    if ( ++col % ColsN == 0 && ++row < RowsN ) {
+      col = 0;
+    }
+  }
+}
+
+// ----------------------------------------------------------------
+
 template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 std::ostream& operator<< ( std::ostream                            & os,
                            field< ArithmeticT, RowsN, ColsN > const& f ) {
 
   // TODO: NEAT PRINT
 
-  std::size_t row = 0;
-  std::size_t col = 0;
+  demarcation_t row = 0;
+  demarcation_t col = 0;
 
-  for ( auto e : f.element ) {
+  for ( auto const& e : f.element ) {
 
     os << f.site ( row, col ) << '\t' << e << '\n';
     if ( ++col % ColsN == 0 && ++row < RowsN ) {
@@ -569,16 +607,16 @@ constexpr auto contour () {
          "set tmargin 0\n"
          "set bmargin 0\n"
          "set nokey\n"
-         "set xrange [0:10]\n"
-         "set yrange [0:10]\n"
+         "set xrange [-5:5]\n"
+         "set yrange [-5:5]\n"
          "set isosample 250,250\n"
          "set table \"contour_map.dat\"\n"
          "splot \"contour.dat\" using 1:2:3\n"
          "unset table\n"
          "set contour base\n"
          "set palette rgbformulae 33,13,10\n"
-         "set cbrange [-5:5]\n"
-         "set cntrparam level discrete -10,0,10\n"
+         "set cbrange [-10:10]\n"
+         "set cntrparam level discrete -10,1,10\n"
          "unset surface\n"
          "set table \"contour_curve.dat\"\n"
          "splot \"contour.dat\" using 1:2:3\n"
@@ -587,7 +625,8 @@ constexpr auto contour () {
          "unset ytics\n"
          "unset cbtics\n"
          "unset colorbox\n"
-         "p \"contour_map.dat\" with image, \"contour_curve.dat\" with l color \"black\"";
+         "p \"contour_map.dat\" with image, \"contour_curve.dat\" with l lc "
+         "\"black\"";
 }
 
 class Contour {};
@@ -624,10 +663,18 @@ error test ();
  * Demonstration (Facade Pattern)
  */
 
-auto demonstration () {
-  field<float,256,256> f;
+template< measurable ArithmeticT = float >
+constexpr ArithmeticT function ( ArithmeticT const& h, ArithmeticT const& v ) {
+  return -1e1 * v * ( 3. * h * h - v * v ) /
+         ( ( h * h + v * v ) * ( h * h + v * v ) );
+}
 
-  f.set_boundaries ( location<float>(0,0), location<float>(10,10)  );
+auto demonstration () {
+  field< float, 1024, 1024 > f;
+
+  f.set_boundaries ( location< float > ( -5, -5 ), location< float > ( 5, 5 ) );
+
+  initialisation< float, 1024, 1024 > ( f, function );
 
   std::ofstream data_file;
   data_file.open ( "contour.dat" );
@@ -635,20 +682,18 @@ auto demonstration () {
   data_file.close ();
 
   std::ofstream contour_file;
-  contour_file.open ("contour.gnu");
+  contour_file.open ( "contour.gnu" );
   contour_file << contour ();
-  contour_file.close();
+  contour_file.close ();
 
 #define GNUPLOT "gnuplot -persist"
 
-  FILE* contour= popen ( GNUPLOT, "w" );
+  FILE *contour = popen ( GNUPLOT, "w" );
 
   fprintf ( contour, "load \"contour.gnu\"" );
-
-
 }
 
-int   EntrancePoint ( int argc, char *argv[] ) {
+int EntrancePoint ( int argc, char *argv[] ) {
 
   demonstration ();
 
