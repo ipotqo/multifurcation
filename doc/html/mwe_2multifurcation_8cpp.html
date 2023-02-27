@@ -126,6 +126,14 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsimulation.html">simulation&lt; ArithmeticT, RowsN, ColsN &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_contour.html">Contour</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_plot_builder.html">PlotBuilder</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_gnu_builder.html">GnuBuilder</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classvisualisation.html">visualisation</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="concepts" name="concepts"></a>
 Concepts</h2></td></tr>
@@ -147,13 +155,16 @@ Macros</h2></td></tr>
 <tr class="memitem:a7470c7e86e9e1f6769210b08ca3d552f"><td class="memItemLeft" align="right" valign="top"><a id="a7470c7e86e9e1f6769210b08ca3d552f" name="a7470c7e86e9e1f6769210b08ca3d552f"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>MULTIFURCATION_VERSION_PATCH</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a7470c7e86e9e1f6769210b08ca3d552f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec53ee0acd16d9f951bc2f63235fa914"><td class="memItemLeft" align="right" valign="top"><a id="aec53ee0acd16d9f951bc2f63235fa914" name="aec53ee0acd16d9f951bc2f63235fa914"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GNUPLOT</b>&#160;&#160;&#160;&quot;gnuplot -persist&quot;</td></tr>
+<tr class="separator:aec53ee0acd16d9f951bc2f63235fa914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a298662757ee99a46e45450928e1c8db5"><td class="memItemLeft" align="right" valign="top"><a id="a298662757ee99a46e45450928e1c8db5" name="a298662757ee99a46e45450928e1c8db5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>lattice_t</b> = std::size_t</td></tr>
-<tr class="memdesc:a298662757ee99a46e45450928e1c8db5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Two-Dimensional Discretised Scalar Field. <br /></td></tr>
-<tr class="separator:a298662757ee99a46e45450928e1c8db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac137512c730fb5584fb90bc4c92e8de7"><td class="memItemLeft" align="right" valign="top"><a id="ac137512c730fb5584fb90bc4c92e8de7" name="ac137512c730fb5584fb90bc4c92e8de7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>demarcation_t</b> = std::size_t</td></tr>
+<tr class="memdesc:ac137512c730fb5584fb90bc4c92e8de7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Two-Dimensional Discretised Scalar Field. <br /></td></tr>
+<tr class="separator:ac137512c730fb5584fb90bc4c92e8de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f2b817e29453e243021635781ae8cab"><td class="memItemLeft" align="right" valign="top"><a id="a4f2b817e29453e243021635781ae8cab" name="a4f2b817e29453e243021635781ae8cab"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>index_t</b> = std::size_t</td></tr>
 <tr class="separator:a4f2b817e29453e243021635781ae8cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -196,16 +207,20 @@ template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> Arithmeti
 template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT&gt; </td></tr>
 <tr class="memitem:adef7a3aa178a934e7691472e0d935720"><td class="memTemplItemLeft" align="right" valign="top">auto constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>orientation</b> (<a class="el" href="structlocation.html">location</a>&lt; ArithmeticT &gt; const &amp;l)</td></tr>
 <tr class="separator:adef7a3aa178a934e7691472e0d935720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c1965379f37264f66e7964cfbe80633"><td class="memTemplParams" colspan="2"><a id="a0c1965379f37264f66e7964cfbe80633" name="a0c1965379f37264f66e7964cfbe80633"></a>
+template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT = float, <a class="el" href="mwe_2multifurcation_8cpp.html#ac137512c730fb5584fb90bc4c92e8de7">demarcation_t</a> RowsN = FALLBACK::ROWS, <a class="el" href="mwe_2multifurcation_8cpp.html#ac137512c730fb5584fb90bc4c92e8de7">demarcation_t</a> ColsN = FALLBACK::COLS&gt; </td></tr>
+<tr class="memitem:a0c1965379f37264f66e7964cfbe80633"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>initialisation</b> (<a class="el" href="classfield.html">field</a>&lt; ArithmeticT, RowsN, ColsN &gt; &amp;, ArithmeticT(*)(ArithmeticT const &amp;, ArithmeticT const &amp;))</td></tr>
+<tr class="separator:a0c1965379f37264f66e7964cfbe80633"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a681d3f14f179a382e8161ca8d142bff1"><td class="memTemplParams" colspan="2"><a id="a681d3f14f179a382e8161ca8d142bff1" name="a681d3f14f179a382e8161ca8d142bff1"></a>
-template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT, <a class="el" href="mwe_2multifurcation_8cpp.html#a298662757ee99a46e45450928e1c8db5">lattice_t</a> RowsN, <a class="el" href="mwe_2multifurcation_8cpp.html#a298662757ee99a46e45450928e1c8db5">lattice_t</a> ColsN&gt; </td></tr>
+template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT, <a class="el" href="mwe_2multifurcation_8cpp.html#ac137512c730fb5584fb90bc4c92e8de7">demarcation_t</a> RowsN, <a class="el" href="mwe_2multifurcation_8cpp.html#ac137512c730fb5584fb90bc4c92e8de7">demarcation_t</a> ColsN&gt; </td></tr>
 <tr class="memitem:a681d3f14f179a382e8161ca8d142bff1"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;, <a class="el" href="classfield.html">field</a>&lt; ArithmeticT, RowsN, ColsN &gt; const &amp;)</td></tr>
 <tr class="separator:a681d3f14f179a382e8161ca8d142bff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d8ab88e463b2512987c7a87fc400ebe"><td class="memItemLeft" align="right" valign="top"><a id="a5d8ab88e463b2512987c7a87fc400ebe" name="a5d8ab88e463b2512987c7a87fc400ebe"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (std::vector&lt; <a class="el" href="classfeature.html">feature</a>&lt;&gt; &gt; const &amp;feature_collection)</td></tr>
 <tr class="separator:a5d8ab88e463b2512987c7a87fc400ebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2763a55e83ac440b9de6ceee82f68e80"><td class="memItemLeft" align="right" valign="top"><a id="a2763a55e83ac440b9de6ceee82f68e80" name="a2763a55e83ac440b9de6ceee82f68e80"></a>
-auto constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a class="el" href="struct_point_feature.html">PointFeature</a> const &amp;f)</td></tr>
-<tr class="separator:a2763a55e83ac440b9de6ceee82f68e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72b066119fa76691920e0e78d765249f"><td class="memItemLeft" align="right" valign="top"><a id="a72b066119fa76691920e0e78d765249f" name="a72b066119fa76691920e0e78d765249f"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a class="el" href="struct_point_feature.html">PointFeature</a> const &amp;f)</td></tr>
+<tr class="separator:a72b066119fa76691920e0e78d765249f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad526660294e347b6bc8d730b18f0185a"><td class="memItemLeft" align="right" valign="top"><a id="ad526660294e347b6bc8d730b18f0185a" name="ad526660294e347b6bc8d730b18f0185a"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a class="el" href="struct_line_feature.html">LineFeature</a> const &amp;f)</td></tr>
 <tr class="separator:ad526660294e347b6bc8d730b18f0185a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,6 +230,11 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a cla
 <tr class="memitem:ad1a44135959fdc4ad3507cdfa8cba401"><td class="memItemLeft" align="right" valign="top"><a id="ad1a44135959fdc4ad3507cdfa8cba401" name="ad1a44135959fdc4ad3507cdfa8cba401"></a>
 auto&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a class="el" href="struct_volume_feature.html">VolumeFeature</a> const &amp;f)</td></tr>
 <tr class="separator:ad1a44135959fdc4ad3507cdfa8cba401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d04676d07bce16ecb90da264dc23f34"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mwe_2multifurcation_8cpp.html#a3d04676d07bce16ecb90da264dc23f34">command</a> ()</td></tr>
+<tr class="separator:a3d04676d07bce16ecb90da264dc23f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5439effe5f5ab60a9770d1281007fe5a"><td class="memItemLeft" align="right" valign="top"><a id="a5439effe5f5ab60a9770d1281007fe5a" name="a5439effe5f5ab60a9770d1281007fe5a"></a>
+constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><b>contour</b> ()</td></tr>
+<tr class="separator:a5439effe5f5ab60a9770d1281007fe5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a308c08cf795dabdec09cd050cb887f18"><td class="memItemLeft" align="right" valign="top"><a id="a308c08cf795dabdec09cd050cb887f18" name="a308c08cf795dabdec09cd050cb887f18"></a>
 <a class="el" href="mwe_2multifurcation_8cpp.html#a5b0beee2719f34e1de5a0d2dc51e1aa6">error</a>&#160;</td><td class="memItemRight" valign="bottom"><b>test_location</b> ()</td></tr>
 <tr class="separator:a308c08cf795dabdec09cd050cb887f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,7 +252,14 @@ auto&#160;</td><td class="memItemRight" valign="bottom"><b>visualise</b> (<a cla
 <tr class="separator:ad1e8c823cca785f57d8216559965b4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a734c98bf1b4b9ec32337bf101ef1d90e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="mwe_2multifurcation_8cpp.html#a5b0beee2719f34e1de5a0d2dc51e1aa6">error</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mwe_2multifurcation_8cpp.html#a734c98bf1b4b9ec32337bf101ef1d90e">test</a> ()</td></tr>
 <tr class="separator:a734c98bf1b4b9ec32337bf101ef1d90e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cdd2d279eb6185b554b93700ac4d552"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mwe_2multifurcation_8cpp.html#a6cdd2d279eb6185b554b93700ac4d552">EntrancePoint</a> (int argc, char *argv[])</td></tr>
+<tr class="memitem:a4993f66da3ad8d19f7fd96fd1da68b87"><td class="memTemplParams" colspan="2">template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT = float&gt; </td></tr>
+<tr class="memitem:a4993f66da3ad8d19f7fd96fd1da68b87"><td class="memTemplItemLeft" align="right" valign="top">constexpr ArithmeticT&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="mwe_2multifurcation_8cpp.html#a4993f66da3ad8d19f7fd96fd1da68b87">function</a> (ArithmeticT const &amp;h, ArithmeticT const &amp;v)</td></tr>
+<tr class="separator:a4993f66da3ad8d19f7fd96fd1da68b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a744927e2504fa3d67d29cbaab216ae27"><td class="memItemLeft" align="right" valign="top"><a id="a744927e2504fa3d67d29cbaab216ae27" name="a744927e2504fa3d67d29cbaab216ae27"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>demonstration</b> ()</td></tr>
+<tr class="separator:a744927e2504fa3d67d29cbaab216ae27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cdd2d279eb6185b554b93700ac4d552"><td class="memItemLeft" align="right" valign="top"><a id="a6cdd2d279eb6185b554b93700ac4d552" name="a6cdd2d279eb6185b554b93700ac4d552"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>EntrancePoint</b> (int argc, char *argv[])</td></tr>
 <tr class="separator:a6cdd2d279eb6185b554b93700ac4d552"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft" align="right" valign="top"><a id="a0ddf1224851353fc92bfbff6f499fa97" name="a0ddf1224851353fc92bfbff6f499fa97"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, char *argv[])</td></tr>
@@ -256,28 +283,59 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, ch
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Contour (Builder Pattern) Visualisation (Builder Pattern) Test Suite (Prototype Declaration) </p>
+<p>Test Suite (Prototype Declaration) </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6cdd2d279eb6185b554b93700ac4d552" name="a6cdd2d279eb6185b554b93700ac4d552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cdd2d279eb6185b554b93700ac4d552">&#9670;&#160;</a></span>EntrancePoint()</h2>
+<a id="a3d04676d07bce16ecb90da264dc23f34" name="a3d04676d07bce16ecb90da264dc23f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d04676d07bce16ecb90da264dc23f34">&#9670;&#160;</a></span>command()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int EntrancePoint </td>
+          <td class="memname">constexpr auto command </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>argc</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p><a class="el" href="class_contour.html">Contour</a> (Builder Pattern) </p>
+
+</div>
+</div>
+<a id="a4993f66da3ad8d19f7fd96fd1da68b87" name="a4993f66da3ad8d19f7fd96fd1da68b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4993f66da3ad8d19f7fd96fd1da68b87">&#9670;&#160;</a></span>function()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;<a class="el" href="conceptmeasurable.html">measurable</a> ArithmeticT = float&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr ArithmeticT function </td>
+          <td>(</td>
+          <td class="paramtype">ArithmeticT const &amp;&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>argv</em>[]&#160;</td>
+          <td class="paramtype">ArithmeticT const &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -285,6 +343,11 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>main</b> (int argc, ch
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 <p>Demonstration (Facade Pattern) </p>
 

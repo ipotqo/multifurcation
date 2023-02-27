@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['fallback_0',['FALLBACK',['../class_f_a_l_l_b_a_c_k.html',1,'']]],
-  ['feature_1',['feature',['../classfeature.html',1,'']]],
-  ['field_2',['field',['../classfield.html',1,'']]]
+  ['demarcation_5ft_0',['demarcation_t',['../mwe_2multifurcation_8cpp.html#ac137512c730fb5584fb90bc4c92e8de7',1,'multifurcation.cpp']]]
 ];

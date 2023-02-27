@@ -44,6 +44,14 @@ struct \mbox{\hyperlink{struct_area_feature}{Area\+Feature}}
 struct \mbox{\hyperlink{struct_volume_feature}{Volume\+Feature}}
 \item 
 class \mbox{\hyperlink{classsimulation}{simulation$<$ Arithmetic\+T, Rows\+N, Cols\+N $>$}}
+\item 
+class \mbox{\hyperlink{class_contour}{Contour}}
+\item 
+class \mbox{\hyperlink{class_plot_builder}{Plot\+Builder}}
+\item 
+class \mbox{\hyperlink{class_gnu_builder}{Gnu\+Builder}}
+\item 
+class \mbox{\hyperlink{classvisualisation}{visualisation}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Concepts}
 \begin{DoxyCompactItemize}
@@ -65,12 +73,15 @@ concept \mbox{\hyperlink{conceptnotable}{notable}}
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a7470c7e86e9e1f6769210b08ca3d552f}\label{mwe_2multifurcation_8cpp_a7470c7e86e9e1f6769210b08ca3d552f}} 
 \#define {\bfseries MULTIFURCATION\+\_\+\+VERSION\+\_\+\+PATCH}~0
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_aec53ee0acd16d9f951bc2f63235fa914}\label{mwe_2multifurcation_8cpp_aec53ee0acd16d9f951bc2f63235fa914}} 
+\#define {\bfseries GNUPLOT}~\char`\"{}gnuplot -\/persist\char`\"{}
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}\label{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}} 
-using {\bfseries lattice\+\_\+t} = std\+::size\+\_\+t
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}\label{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}} 
+using {\bfseries demarcation\+\_\+t} = std\+::size\+\_\+t
 \begin{DoxyCompactList}\small\item\em Two-\/\+Dimensional Discretised Scalar Field. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a4f2b817e29453e243021635781ae8cab}\label{mwe_2multifurcation_8cpp_a4f2b817e29453e243021635781ae8cab}} 
 using {\bfseries index\+\_\+t} = std\+::size\+\_\+t
@@ -107,14 +118,17 @@ auto {\bfseries rndf} ()
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_adef7a3aa178a934e7691472e0d935720}\label{mwe_2multifurcation_8cpp_adef7a3aa178a934e7691472e0d935720}} 
 {\footnotesize template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT$>$ }\\auto constexpr {\bfseries orientation} (\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ const \&l)
 \item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a0c1965379f37264f66e7964cfbe80633}\label{mwe_2multifurcation_8cpp_a0c1965379f37264f66e7964cfbe80633}} 
+{\footnotesize template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT = float, \mbox{\hyperlink{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}{demarcation\+\_\+t}} RowsN = FALLBACK\+::\+ROWS, \mbox{\hyperlink{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}{demarcation\+\_\+t}} ColsN = FALLBACK\+::\+COLS$>$ }\\void {\bfseries initialisation} (\mbox{\hyperlink{classfield}{field}}$<$ ArithmeticT, RowsN, ColsN $>$ \&, ArithmeticT($\ast$)(ArithmeticT const \&, ArithmeticT const \&))
+\item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a681d3f14f179a382e8161ca8d142bff1}\label{mwe_2multifurcation_8cpp_a681d3f14f179a382e8161ca8d142bff1}} 
-{\footnotesize template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT, \mbox{\hyperlink{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}{lattice\+\_\+t}} RowsN, \mbox{\hyperlink{mwe_2multifurcation_8cpp_a298662757ee99a46e45450928e1c8db5}{lattice\+\_\+t}} ColsN$>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&, \mbox{\hyperlink{classfield}{field}}$<$ ArithmeticT, RowsN, ColsN $>$ const \&)
+{\footnotesize template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT, \mbox{\hyperlink{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}{demarcation\+\_\+t}} RowsN, \mbox{\hyperlink{mwe_2multifurcation_8cpp_ac137512c730fb5584fb90bc4c92e8de7}{demarcation\+\_\+t}} ColsN$>$ }\\std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&, \mbox{\hyperlink{classfield}{field}}$<$ ArithmeticT, RowsN, ColsN $>$ const \&)
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a5d8ab88e463b2512987c7a87fc400ebe}\label{mwe_2multifurcation_8cpp_a5d8ab88e463b2512987c7a87fc400ebe}} 
 void {\bfseries visualise} (std\+::vector$<$ \mbox{\hyperlink{classfeature}{feature}}$<$$>$ $>$ const \&feature\+\_\+collection)
 \item 
-\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a2763a55e83ac440b9de6ceee82f68e80}\label{mwe_2multifurcation_8cpp_a2763a55e83ac440b9de6ceee82f68e80}} 
-auto constexpr {\bfseries visualise} (\mbox{\hyperlink{struct_point_feature}{Point\+Feature}} const \&f)
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a72b066119fa76691920e0e78d765249f}\label{mwe_2multifurcation_8cpp_a72b066119fa76691920e0e78d765249f}} 
+auto {\bfseries visualise} (\mbox{\hyperlink{struct_point_feature}{Point\+Feature}} const \&f)
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_ad526660294e347b6bc8d730b18f0185a}\label{mwe_2multifurcation_8cpp_ad526660294e347b6bc8d730b18f0185a}} 
 auto {\bfseries visualise} (\mbox{\hyperlink{struct_line_feature}{Line\+Feature}} const \&f)
@@ -124,6 +138,11 @@ auto {\bfseries visualise} (\mbox{\hyperlink{struct_area_feature}{Area\+Feature}
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_ad1a44135959fdc4ad3507cdfa8cba401}\label{mwe_2multifurcation_8cpp_ad1a44135959fdc4ad3507cdfa8cba401}} 
 auto {\bfseries visualise} (\mbox{\hyperlink{struct_volume_feature}{Volume\+Feature}} const \&f)
+\item 
+constexpr auto \mbox{\hyperlink{mwe_2multifurcation_8cpp_a3d04676d07bce16ecb90da264dc23f34}{command}} ()
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a5439effe5f5ab60a9770d1281007fe5a}\label{mwe_2multifurcation_8cpp_a5439effe5f5ab60a9770d1281007fe5a}} 
+constexpr auto {\bfseries contour} ()
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a308c08cf795dabdec09cd050cb887f18}\label{mwe_2multifurcation_8cpp_a308c08cf795dabdec09cd050cb887f18}} 
 \mbox{\hyperlink{mwe_2multifurcation_8cpp_a5b0beee2719f34e1de5a0d2dc51e1aa6}{error}} {\bfseries test\+\_\+location} ()
@@ -142,7 +161,13 @@ auto {\bfseries visualise} (\mbox{\hyperlink{struct_volume_feature}{Volume\+Feat
 \item 
 \mbox{\hyperlink{mwe_2multifurcation_8cpp_a5b0beee2719f34e1de5a0d2dc51e1aa6}{error}} \mbox{\hyperlink{mwe_2multifurcation_8cpp_a734c98bf1b4b9ec32337bf101ef1d90e}{test}} ()
 \item 
-int \mbox{\hyperlink{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}{Entrance\+Point}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+{\footnotesize template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT = float$>$ }\\constexpr ArithmeticT \mbox{\hyperlink{mwe_2multifurcation_8cpp_a4993f66da3ad8d19f7fd96fd1da68b87}{function}} (ArithmeticT const \&h, ArithmeticT const \&v)
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a744927e2504fa3d67d29cbaab216ae27}\label{mwe_2multifurcation_8cpp_a744927e2504fa3d67d29cbaab216ae27}} 
+auto {\bfseries demonstration} ()
+\item 
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}\label{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}} 
+int {\bfseries Entrance\+Point} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
 \item 
 \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{mwe_2multifurcation_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
 int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
@@ -167,14 +192,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \char`\"{}\+
 \doxysubsubsection{\texorpdfstring{error}{error}}
 {\footnotesize\ttfamily using \mbox{\hyperlink{mwe_2multifurcation_8cpp_a5b0beee2719f34e1de5a0d2dc51e1aa6}{error}} =  int}
 
-Contour (Builder Pattern) Visualisation (Builder Pattern) Test Suite (Prototype Declaration) 
+Test Suite (Prototype Declaration) 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}\label{mwe_2multifurcation_8cpp_a6cdd2d279eb6185b554b93700ac4d552}} 
-\index{multifurcation.cpp@{multifurcation.cpp}!EntrancePoint@{EntrancePoint}}
-\index{EntrancePoint@{EntrancePoint}!multifurcation.cpp@{multifurcation.cpp}}
-\doxysubsubsection{\texorpdfstring{EntrancePoint()}{EntrancePoint()}}
-{\footnotesize\ttfamily int Entrance\+Point (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{mwe_2multifurcation_8cpp_a3d04676d07bce16ecb90da264dc23f34}\label{mwe_2multifurcation_8cpp_a3d04676d07bce16ecb90da264dc23f34}} 
+\index{multifurcation.cpp@{multifurcation.cpp}!command@{command}}
+\index{command@{command}!multifurcation.cpp@{multifurcation.cpp}}
+\doxysubsubsection{\texorpdfstring{command()}{command()}}
+{\footnotesize\ttfamily constexpr auto command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+\doxylink{class_contour}{Contour} (Builder Pattern) \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a4993f66da3ad8d19f7fd96fd1da68b87}\label{mwe_2multifurcation_8cpp_a4993f66da3ad8d19f7fd96fd1da68b87}} 
+\index{multifurcation.cpp@{multifurcation.cpp}!function@{function}}
+\index{function@{function}!multifurcation.cpp@{multifurcation.cpp}}
+\doxysubsubsection{\texorpdfstring{function()}{function()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT = float$>$ \\
+constexpr ArithmeticT function (\begin{DoxyParamCaption}\item[{ArithmeticT const \&}]{h,  }\item[{ArithmeticT const \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
 
 Demonstration (Facade Pattern) \mbox{\Hypertarget{mwe_2multifurcation_8cpp_a734c98bf1b4b9ec32337bf101ef1d90e}\label{mwe_2multifurcation_8cpp_a734c98bf1b4b9ec32337bf101ef1d90e}} 
 \index{multifurcation.cpp@{multifurcation.cpp}!test@{test}}
