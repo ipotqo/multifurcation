@@ -236,18 +236,18 @@ auto constexpr orientation ( location< ArithmeticT > const& l ) {
  * \brief Two-Dimensional Discretised Scalar Field
  */
 
-using lattice_t = std::size_t;
-using index_t   = std::size_t;
+using demarcation_t = std::size_t;
+using index_t       = std::size_t;
 
-template< measurable ArithmeticT = float, lattice_t RowsN = FALLBACK::ROWS,
-          lattice_t ColsN = FALLBACK::COLS >
+template< measurable ArithmeticT = float, demarcation_t RowsN = FALLBACK::ROWS,
+          demarcation_t ColsN = FALLBACK::COLS >
 class field;
 
-template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 std::ostream& operator<< ( std::ostream&,
                            field< ArithmeticT, RowsN, ColsN > const& );
 
-template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 class field {
 
 public:
@@ -279,7 +279,8 @@ public:
                       ColsN );
   }
 
-  auto constexpr site ( lattice_t const& row, lattice_t const& col ) const {
+  auto constexpr site ( demarcation_t const& row,
+                        demarcation_t const& col ) const {
 
     location< ArithmeticT > const translation ( row * horizontal_resolution (),
                                                 col * vertical_resolution () );
@@ -297,6 +298,10 @@ public:
   auto const& value ( index_t const& row, index_t const& col ) const {
     return this->element[rindex ( row, col )];
   }
+
+  // --------------------------------
+
+  // TODO: maximum and minimum element
 
   // --------------------------------
 
@@ -327,7 +332,7 @@ private:
   domain anchor;  // south-west and north-east corners
 };
 
-template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 std::ostream& operator<< ( std::ostream                            & os,
                            field< ArithmeticT, RowsN, ColsN > const& f ) {
 
@@ -525,20 +530,20 @@ auto visualise ( VolumeFeature const& f ) {
 // ================================================================
 
 /**
- * Simulation (Factory Method Pattern)
+ * Simulation (Factory Method & Observer Patterns)
  */
 
-template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+template< measurable ArithmeticT, demarcation_t RowsN, demarcation_t ColsN >
 class simulation {
 
 public:
   simulation< ArithmeticT, RowsN, ColsN > () {
-    this->m_FeatureCollection.resize ( 0 );
+    this->feature_collection.resize ( 0 );
   }
 
-private:
-  field< ArithmeticT, RowsN, ColsN >    m_FieldState;
-  std::vector< feature< ArithmeticT > > m_FeatureCollection;
+public:
+  field< ArithmeticT, RowsN, ColsN >    field_state;
+  std::vector< feature< ArithmeticT > > feature_collection;
 };
 
 // TODO thread & mutex lock
@@ -550,11 +555,54 @@ private:
  * Contour (Builder Pattern)
  */
 
+constexpr auto command () {
+  return "gnuplot -persist";
+}
+
+constexpr auto contour () {
+  return "#!/usr/bin/gnuplot\n"
+         "reset\n"
+         "set terminal epslatex size 5,5 color\n"
+         "set output \"contour.tex\"\n"
+         "set lmargin 0\n"
+         "set rmargin 0\n"
+         "set tmargin 0\n"
+         "set bmargin 0\n"
+         "set nokey\n"
+         "set xrange [0:10]\n"
+         "set yrange [0:10]\n"
+         "set isosample 250,250\n"
+         "set table \"contour_map.dat\"\n"
+         "splot \"contour.dat\" using 1:2:3\n"
+         "unset table\n"
+         "set contour base\n"
+         "set palette rgbformulae 33,13,10\n"
+         "set cbrange [-5:5]\n"
+         "set cntrparam level discrete -10,0,10\n"
+         "unset surface\n"
+         "set table \"contour_curve.dat\"\n"
+         "splot \"contour.dat\" using 1:2:3\n"
+         "unset table\n"
+         "unset xtics\n"
+         "unset ytics\n"
+         "unset cbtics\n"
+         "unset colorbox\n"
+         "p \"contour_map.dat\" with image, \"contour_curve.dat\" with l color \"black\"";
+}
+
+class Contour {};
+
+class PlotBuilder {};
+
+class GnuBuilder : public PlotBuilder {};
+
 // ================================================================
 
 /**
  * Visualisation (Builder Pattern)
  */
+
+class visualisation {};
 
 // ================================================================
 
@@ -576,7 +624,34 @@ error test ();
  * Demonstration (Facade Pattern)
  */
 
+auto demonstration () {
+  field<float,256,256> f;
+
+  f.set_boundaries ( location<float>(0,0), location<float>(10,10)  );
+
+  std::ofstream data_file;
+  data_file.open ( "contour.dat" );
+  data_file << f;
+  data_file.close ();
+
+  std::ofstream contour_file;
+  contour_file.open ("contour.gnu");
+  contour_file << contour ();
+  contour_file.close();
+
+#define GNUPLOT "gnuplot -persist"
+
+  FILE* contour= popen ( GNUPLOT, "w" );
+
+  fprintf ( contour, "load \"contour.gnu\"" );
+
+
+}
+
 int   EntrancePoint ( int argc, char *argv[] ) {
+
+  demonstration ();
+
   return EXIT_SUCCESS;
 }
 
