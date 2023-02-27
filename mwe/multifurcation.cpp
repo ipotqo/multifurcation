@@ -4,7 +4,7 @@
  *
  * MULTIFURCATION (C) 2023 // TIM PLEASETH @IPOTQO
  *
- * THIS FILE IS PART OF THE MULTIFURCATION PROJECT:
+ * THIS FILE IS PART OF THE \b MULTIFURCATION PROJECT:
  * HTTPS://WWW.GITHUB.COM/IPOTQO/MULTIFURCATION
  *
  * LICENSE: UNLICENSE
@@ -269,14 +269,6 @@ public:
 
   // --------------------------------
 
-  // TODO: correction resolution calculations
-
-  /*
-ArithmeticT division = [](ArithmeticT minimum, ArithmeticT maximum, lattice_t
-interval ) { return fabs ( maximum - minimum ) / ( interval - 1 );
-};
-  */
-
   auto constexpr horizontal_resolution () const {
     return interval ( this->anchor.first.horizontal,
                       this->anchor.second.horizontal, RowsN );
@@ -478,8 +470,76 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
 // ================================================================
 
 /**
+ * Notable Elements (Feature Concretions)
+ */
+
+template< typename GenericT >
+concept notable = requires ( GenericT v ) {
+                    { visualise ( v ) } -> std::same_as< void >;
+                  };
+
+struct PointFeature final {
+  explicit PointFeature ( location< float > c = location< float > ( 0, 0 ) )
+      : centre { c } {}
+
+  location< float > centre;
+};
+
+struct LineFeature final {
+  explicit LineFeature () {}
+
+  location< float > centre;
+  float             size;
+  float             colour;
+  float             orientation;
+};
+
+struct AreaFeature final {
+  explicit AreaFeature () {}
+
+  location< float > centre;
+};
+
+struct VolumeFeature final {
+  explicit VolumeFeature () {}
+
+  location< float > centre;
+};
+
+auto visualise ( PointFeature const& f ) {
+  std::cout << "Point Feature\t@\t(" << f.centre << ")\n";
+}
+
+auto visualise ( LineFeature const& f ) {
+  std::cout << "Line Feature\t@\t(" << f.centre << ")\n";
+}
+
+auto visualise ( AreaFeature const& f ) {
+  std::cout << "Area Feature\t@\t(" << f.centre << ")\n";
+}
+
+auto visualise ( VolumeFeature const& f ) {
+  std::cout << "Volume Feature\t@\t(" << f.centre << ")\n";
+}
+
+// ================================================================
+
+/**
  * Simulation (Factory Method Pattern)
  */
+
+template< measurable ArithmeticT, lattice_t RowsN, lattice_t ColsN >
+class simulation {
+
+public:
+  simulation< ArithmeticT, RowsN, ColsN > () {
+    this->m_FeatureCollection.resize ( 0 );
+  }
+
+private:
+  field< ArithmeticT, RowsN, ColsN >    m_FieldState;
+  std::vector< feature< ArithmeticT > > m_FeatureCollection;
+};
 
 // TODO thread & mutex lock
 // TODO std::accummulate with lambda idiom
@@ -501,9 +561,14 @@ void visualise ( std::vector< feature<> > const& feature_collection ) {
 /**
  * Test Suite (Prototype Declaration)
  */
-int test_location ();
-int test_field ();
-int test ();
+using error = int;
+
+error test_location ();
+error test_field ();
+error test_feature ();
+error test_simulation ();
+error test_visualisation ();
+error test ();
 
 // ================================================================
 
@@ -511,7 +576,7 @@ int test ();
  * Demonstration (Facade Pattern)
  */
 
-int EntrancePoint ( int argc, char *argv[] ) {
+int   EntrancePoint ( int argc, char *argv[] ) {
   return EXIT_SUCCESS;
 }
 
@@ -536,15 +601,18 @@ int main ( int argc, char *argv[] ) {
  * Test Suite (Implementation)
  */
 
-int test () {
+error test () {
 
-  // auto status_location = test_location ();
-  // auto status_field    = test_field ();
+  auto status_location      = test_location ();
+  auto status_field         = test_field ();
+  auto status_feature       = test_feature ();
+  auto status_simulation    = test_simulation ();
+  auto status_visualisation = test_visualisation ();
 
   return EXIT_SUCCESS;
 }
 
-int test_location () {
+error test_location () {
 
   {
 
@@ -564,7 +632,7 @@ int test_location () {
   return 0;
 }
 
-int test_field () {
+error test_field () {
 
   {
 
@@ -587,5 +655,29 @@ int test_field () {
     std::cout << f << '\n';
   }
 
+  return 0;
+}
+
+error test_feature () {
+
+  {
+    std::vector< feature< float > > feature_collection;
+
+    feature_collection.emplace_back ( PointFeature {} );
+    feature_collection.emplace_back ( LineFeature {} );
+    feature_collection.emplace_back ( AreaFeature {} );
+    feature_collection.emplace_back ( VolumeFeature {} );
+
+    visualise ( feature_collection );
+  }
+
+  return 0;
+}
+
+error test_simulation () {
+  return 0;
+}
+
+error test_visualisation () {
   return 0;
 }

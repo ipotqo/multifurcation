@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['readme_0',['README',['../md_utilities_2author_2_r_e_a_d_m_e.html',1,'']]],
-  ['real_1',['real',['../conceptreal.html',1,'']]]
+  ['notable_0',['notable',['../conceptnotable.html',1,'']]]
 ];

@@ -1,0 +1,12 @@
+\hypertarget{conceptrootable}{}\doxysection{rootable Concept Reference}
+\label{conceptrootable}\index{rootable@{rootable}}
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename}\ GenericT>}
+\DoxyCodeLine{\textcolor{keyword}{concept\ }\mbox{\hyperlink{conceptrootable}{rootable}}\ =\ \ \textcolor{keyword}{requires}\ (\ GenericT\ value\ )\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ std::is\_floating\_point\_v<\ GenericT\ >\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ value\ >=\ 0.\ \};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}

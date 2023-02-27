@@ -10,6 +10,21 @@ Two-\/\+Dimensional Cartesian Location.
 \item 
 \mbox{\Hypertarget{structlocation_ac9785e822dfcfc20aa1ee16a7478825f}\label{structlocation_ac9785e822dfcfc20aa1ee16a7478825f}} 
 {\bfseries location} (ArithmeticT const \&h, ArithmeticT const \&v)
+\item 
+\mbox{\Hypertarget{structlocation_ad8a30b71de4314ecb8574e2f50438053}\label{structlocation_ad8a30b71de4314ecb8574e2f50438053}} 
+\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ \& {\bfseries operator=} (\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ other)
+\item 
+\mbox{\Hypertarget{structlocation_a104f5580600584e29625f7a8935d3475}\label{structlocation_a104f5580600584e29625f7a8935d3475}} 
+\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ \& {\bfseries operator+=} (\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ const \&rhs)
+\item 
+\mbox{\Hypertarget{structlocation_ae92464f311a1bea83206c2955c14f7eb}\label{structlocation_ae92464f311a1bea83206c2955c14f7eb}} 
+\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ \& {\bfseries operator-\/=} (\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ const \&rhs)
+\item 
+\mbox{\Hypertarget{structlocation_a56153e8c00f46435f98ffae699a8b8c4}\label{structlocation_a56153e8c00f46435f98ffae699a8b8c4}} 
+\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ \& {\bfseries operator$\ast$=} (ArithmeticT const \&rhs)
+\item 
+\mbox{\Hypertarget{structlocation_ae33df161d87f49735d0144b0f3831c46}\label{structlocation_ae33df161d87f49735d0144b0f3831c46}} 
+\mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ \& {\bfseries operator/=} (ArithmeticT const \&rhs)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -20,10 +35,16 @@ ArithmeticT {\bfseries horizontal}
 \mbox{\Hypertarget{structlocation_a0fcb219749b5407f215cec74c3691246}\label{structlocation_a0fcb219749b5407f215cec74c3691246}} 
 ArithmeticT {\bfseries vertical}
 \end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structlocation_a615a0bcb1c10463022d2c941a1e6914c}\label{structlocation_a615a0bcb1c10463022d2c941a1e6914c}} 
+std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&, \mbox{\hyperlink{structlocation}{location}}$<$ ArithmeticT $>$ const \&)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-\subsubsection*{template$<$\mbox{\hyperlink{conceptreal}{real}} ArithmeticT$>$\newline
+\subsubsection*{template$<$\mbox{\hyperlink{conceptmeasurable}{measurable}} ArithmeticT$>$\newline
 struct location$<$ Arithmetic\+T $>$}
 Two-\/\+Dimensional Cartesian Location. 
 

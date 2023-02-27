@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['feature_0',['feature',['../classfeature.html',1,'']]],
-  ['field_1',['field',['../classfield.html',1,'']]]
+  ['areafeature_0',['AreaFeature',['../struct_area_feature.html',1,'']]]
 ];
