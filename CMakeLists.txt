@@ -83,7 +83,7 @@ set (
 
 file (
     READ
-    ${CMAKE_CURRENT_LIST_DIR}/include/${MULTIFURCATION_HEADERS_DIR}/version.hpp
+    ${MULTIFURCATION_HEADERS_DIR}/version.hpp
     MULTIFURCATION_VERSION_FILE
 )
 
