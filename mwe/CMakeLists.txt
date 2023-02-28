@@ -1,54 +1,58 @@
-cmake_minimum_required ( VERSION 3.14..3.25 )
+cmake_minimum_required ( VERSION 3.14...3.25 )
 
 set (
-    CMAKE_CXX_STANDARD
-    20
+  CMAKE_CXX_STANDARD
+  20
 )
-
-file (
-    READ
-    ${CMAKE_CURRENT_LIST_DIR}/multifurcation.cpp
-    MULTIFURCATION_SOURCE_FILE
-)
-
-string (
-    REGEX MATCH
-    "#define MULTIFURCATION_VERSION_MAJOR ([0-9]*)"
-    _MULTIFURCATION_VERSION_MAJOR
-    ${MULTIFURCATION_SOURCE_FILE}
-)
-
-set( MULTIFURCATION_VERSION_MAJOR ${CMAKE_MATCH_1} )
-
-string (
-    REGEX MATCH
-    "#define MULTIFURCATION_VERSION_MINOR ([0-9]*)"
-    _MULTIFURCATION_VERSION_MINOR
-    ${MULTIFURCATION_SOURCE_FILE}
-)
-
-set( MULTIFURCATION_VERSION_MINOR ${CMAKE_MATCH_1} )
-
-string (
-    REGEX MATCH
-    "#define MULTIFURCATION_VERSION_PATCH ([0-9]*)"
-    _MULTIFURCATION_VERSION_PATCH
-    ${MULTIFURCATION_SOURCE_FILE}
-)
-
-set( MULTIFURCATION_VERSION_PATCH ${CMAKE_MATCH_1} )
 
 project (
-    multifurcation
-    VERSION
-        "${MULTIFURCATION_VERSION_MAJOR}.${MULTIFURCATION_VERSION_MINOR}.${MULTIFURCATION_VERSION_PATCH}"
-    LANGUAGES
-        C CXX
+  mwe
+  VERSION
+    0.0.0
+  DESCRIPTION
+    "mwe"
+  LANGUAGES
+    C CXX
 )
 
-message (
-    STATUS
-    "MULTIFURCATION ${PROJECT_VERSION}"
+if (
+  CMAKE_PROJECT_NAME
+  STREQUAL
+  PROJECT_NAME
 )
 
-add_executable ( multifurcation multifurcation.cpp )
+set (
+  CMAKE_CXX_EXTENSIONS OFF
+)
+
+set_property ( GLOBAL PROPERTY USE_FOLDERS ON )
+
+include( CTest )
+
+find_package( Doxygen )
+  if ( Doxygen_FOUND )
+    add_subdirectory( doc )
+  else ()
+    message( STATUS "Doxygen not found so documentation will not be built" )
+  endif ()
+endif ()
+
+include( FetchContent )
+
+find_package( Boost REQUIRED )
+
+FetchContent_Declare (
+  fmtlib
+  GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+  GIT_TAG 5.3.0 )
+FetchContent_MakeAvailable( fmtlib )
+
+add_subdirectory( src )
+
+add_subdirectory( multifurcation )
+
+if(
+  ( CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING )
+   AND BUILD_TESTING )
+  add_subdirectory( test )
+endif ()

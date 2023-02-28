@@ -81,15 +81,55 @@ set (
 
 # PROJECT
 
+file (
+    READ
+    ${CMAKE_CURRENT_LIST_DIR}/include/${MULTIFURCATION_HEADERS_DIR}/version.hpp
+    MULTIFURCATION_VERSION_FILE
+)
+
+string (
+    REGEX MATCH
+    "#define MULTIFURCATION_VERSION_MAJOR ([0-9]*)"
+    _MULTIFURCATION_VERSION_MAJOR
+    ${MULTIFURCATION_VERSION_FILE}
+)
+
+set( MULTIFURCATION_VERSION_MAJOR ${CMAKE_MATCH_1} )
+
+string (
+    REGEX MATCH
+    "#define MULTIFURCATION_VERSION_MINOR ([0-9]*)"
+    _MULTIFURCATION_VERSION_MINOR
+    ${MULTIFURCATION_VERSION_FILE}
+)
+
+set( MULTIFURCATION_VERSION_MINOR ${CMAKE_MATCH_1} )
+
+string (
+    REGEX MATCH
+    "#define MULTIFURCATION_VERSION_PATCH ([0-9]*)"
+    _MULTIFURCATION_VERSION_PATCH
+    ${MULTIFURCATION_VERSION_FILE}
+)
+
+set( MULTIFURCATION_VERSION_PATCH ${CMAKE_MATCH_1} )
+
 project (
     multifurcation
     VERSION
-        0.0.0
+    "${MULTIFURCATION_VERSION_MAJOR}.${MULTIFURCATION_VERSION_MINOR}.${MULTIFURCATION_VERSION_PATCH}"
     DESCRIPTION
         "CMake Structure with Branched Subdivisions"
     LANGUAGES
         C CXX
 )
+
+message (
+    STATUS
+    "MULTIFURCATION ${PROJECT_VERSION}"
+)
+
+# TESTING
 
 enable_testing ()
 add_subdirectory ( external/googletest )
@@ -97,7 +137,6 @@ include_directories (
     ${gtest_SOURCE_DIR}/include
     ${gtest_SOURCE_DIR}
 )
-
 
 add_executable (
     ${MULTIFURCATION_PROJECT_NAME}

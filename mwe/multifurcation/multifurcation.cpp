@@ -27,6 +27,10 @@
 #define MULTIFURCATION_VERSION_MINOR 0
 #define MULTIFURCATION_VERSION_PATCH 0
 
+    #include <mwe/mwe.hpp>
+
+#include <fmt/format.h>
+
 #include <cassert>
 #include <cmath>
 #include <cstddef>
@@ -706,6 +710,8 @@ int main ( int argc, char *argv[] ) {
 
   printf ( "MULTIFURCATION VERSION %d.%d.%d\n", MULTIFURCATION_VERSION_MAJOR,
            MULTIFURCATION_VERSION_MINOR, MULTIFURCATION_VERSION_PATCH );
+
+location_::location_ ();
 
   if ( test () == 0 )
     return EntrancePoint ( argc, argv );
