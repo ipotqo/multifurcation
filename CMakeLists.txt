@@ -138,8 +138,16 @@ include_directories (
     ${gtest_SOURCE_DIR}
 )
 
-add_executable (
-    ${MULTIFURCATION_PROJECT_NAME}
+# add_executable (
+#    ${MULTIFURCATION_PROJECT_NAME}
+#    ${MULTIFURCATION_SOURCE}
+# )
+
+add_subdirectory ( app )
+
+add_library (
+    ${MULTIFURCATION_LIBRARY_NAME} STATIC
+    ${MULTIFURCATION_HEADERS}
     ${MULTIFURCATION_SOURCE}
 )
 
