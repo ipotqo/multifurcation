@@ -21,4 +21,4 @@ RUN sh scripts/build.sh
 CMD [ "./build/multifurcation" ]
 
 RUN cd mwe
-RUN sh multifurcation.sh
+RUN sh scripts/mwe.sh
