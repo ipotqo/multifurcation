@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:latest@sha256:854037bf6521e9c321c101c269272f756e481fb5f167ae032cb53da08aebcd5a
 RUN apt-get update
 # RUN apt-get upgrade
 # RUN apt-get build-essential
